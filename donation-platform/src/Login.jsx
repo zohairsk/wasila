@@ -1,14 +1,24 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavbarComp from './Navbar';
+
 export default function Login(){
     return(
         <>
-        <div className="login">
+        <NavbarComp></NavbarComp>
+        <h1>Donation Platform</h1>
+        <div className="login" >
             <h1>Login</h1>
             <div className="login-form">
                 <form>
                     <input type="text" placeholder="Email"></input>
+                    <br></br>
                     <input type="password" placeholder="Password"></input>
-                    <button type="submit" onClick="verifyUser">Login</button>
+                    <br></br>
+                    <button type="submit" onClick={verifyUser}>Login</button>
                 </form>
+                <p>Click 
+                    <a href="https://www.w3schools.com/" target="_blank"> here </a>
+                if you are a new user</p>
             </div>
         </div>
         </>
