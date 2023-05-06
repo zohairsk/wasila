@@ -14,7 +14,7 @@ export default function Login(){
                     <br></br>
                     <input type="password" placeholder="Password"></input>
                     <br></br>
-                    <button type="submit" onClick={verifyUser}>Login</button>
+                    <button type="submit" onClick="verifyUser">Login</button>
                 </form>
                 <p>Click 
                     <a href="https://www.w3schools.com/" target="_blank"> here </a>

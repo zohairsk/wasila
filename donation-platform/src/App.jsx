@@ -8,8 +8,6 @@ import Col from 'react-bootstrap/Col';
 import Login from './Login';
 import Aboutus from './aboutus';
 import Donationinfo from './Donationinfo';
-// import { useState } from 'react';
-
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,7 +19,7 @@ function App() {
 
   return (
     <>
-      <NavbarComp></NavbarComp>
+     <NavbarComp></NavbarComp>
       <h1>Donation Platform</h1>
       <br></br>
       <img src="../images/icon.png"></img>
