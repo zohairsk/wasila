@@ -16,8 +16,8 @@ export default class NavbarComp extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                    <Nav.Link href="Login.jsx">Login</Nav.Link>
+                    {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
                         Another action
@@ -27,7 +27,7 @@ export default class NavbarComp extends Component {
                     <NavDropdown.Item href="#action/3.4">
                         Separated link
                     </NavDropdown.Item>
-                    </NavDropdown>
+                    </NavDropdown> */}
                 </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -36,3 +36,4 @@ export default class NavbarComp extends Component {
         )
     }
 }
+

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Homepage from './Homepage'
+import DonationCards from './DonationCards'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './Navbar';
 
@@ -15,7 +15,7 @@ function App() {
         <div>
           <p>donate pls!</p>
         </div>
-        <Homepage></Homepage>
+        <DonationCards></DonationCards>
      </section>
     </>
   )
