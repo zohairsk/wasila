@@ -7,7 +7,7 @@ export default function Login(){
                 <form>
                     <input type="text" placeholder="Email"></input>
                     <input type="password" placeholder="Password"></input>
-                    <button type="submit" onClick="verifyUser">Login</button>
+                    <button type="submit" onClick={verifyUser}>Login</button>
                 </form>
             </div>
         </div>

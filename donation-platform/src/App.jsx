@@ -3,20 +3,17 @@ import './App.css'
 import DonationCards from './DonationCards'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './Navbar';
+import Signup from './Signup';
+import Login from './Login'
+import DonationSubmission from './DonationSubmission';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-     <section>
-        <NavbarComp></NavbarComp>
-        <h1>Donation Platform</h1>
-        <div>
-          <p>donate pls!</p>
-        </div>
-        <DonationCards></DonationCards>
-     </section>
+      <NavbarComp></NavbarComp>
+      <DonationCards></DonationCards>
     </>
   )
 }
