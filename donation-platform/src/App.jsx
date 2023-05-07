@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import DonationCards from './DonationCards'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Login from './Login';
 import Aboutus from './aboutus';
-import Donationinfo from './Donationinfo';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,7 +14,6 @@ function App() {
   function handlecards(){
     return setCards(!cards);
   }
-
 
   return (
     <>
