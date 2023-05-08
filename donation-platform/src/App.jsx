@@ -7,6 +7,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Login from './Login';
 import Aboutus from './aboutus';
+import DonationType from './DonationType'
+import DonationSubmission from './DonationSubmission';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,16 +20,19 @@ function App() {
 
   return (
     <>
-     <NavbarComp></NavbarComp>
-      <h1>Donation Platform</h1>
-      <br></br>
-      <img src="../images/icon.png"></img>
-      <br></br><br></br>
-      <Aboutus></Aboutus>
-      <br></br>
-      <button type="button" className="btn btn-info" onClick={()=>{handlecards()}}>See Donation Information</button>
-      {cards&&(<DonationCards/>)}
+      <DonationSubmission/>
     </>
+    // <>
+    //  <NavbarComp></NavbarComp>
+    //   <h1>Donation Platform</h1>
+    //   <br></br>
+    //   <img src="../images/icon.png"></img>
+    //   <br></br><br></br>
+    //   <Aboutus></Aboutus>
+    //   <br></br>
+    //   <button type="button" className="btn btn-info" onClick={()=>{handlecards()}}>See Donation Information</button>
+    //   {cards&&(<DonationCards/>)}
+    // </>
     
   )
 }

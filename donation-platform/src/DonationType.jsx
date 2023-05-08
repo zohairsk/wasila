@@ -1,37 +1,24 @@
 import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import NavbarComp from './Navbar';
 
-export default function DonationType(){
+export default function DonationType({handleClick}){
     return (
         <>
-        <NavbarComp></NavbarComp>
-        <h1 className='mt-5 mb-3'>Donation Submission</h1>
-        <Row className="h-100">
-            <Col className="h-100">
-                <Card style={{ width: 'auto', height: '30rem'}}>
-                <Card.Img variant="top" src="Edhi-foundation.png" />
-                <Card.Body>
-                    <Card.Title><input type="radio" name="donationType" value="simple"/> Simple Donation</Card.Title>
-                    <Card.Text>
-                    Specify an amount and organization to donate to. 
-                    </Card.Text>
-                </Card.Body>
-                </Card>
-            </Col>
-            <Col>
-                <Card style={{  width: '25rem', height: '30rem'}}>
-                <Card.Img variant="top" src="Edhi-foundation.png" />
-                <Card.Body>
-                    <Card.Title><input type="radio" name="donationType"value="advanced"/> Advanced Donation</Card.Title>
-                    <Card.Text>
-                    Split funds between multiple organizations with just a few clicks! 
-                    </Card.Text>
-                </Card.Body>
-                </Card> 
-            </Col>
-        </Row>
+            <Card className="m-3 border border-dark" style={{ width: 'auto', height: '20rem'}} onClick={()=>handleClick(0)}>
+            <Card.Body>
+                <Card.Title>Simple Donation</Card.Title>
+                <Card.Text>
+                Donate to an organization of your choice!
+                </Card.Text>
+            </Card.Body>
+            </Card>
+            <Card className="m-3 border border-dark" style={{ width: 'auto', height: '20rem'}} onClick={()=>handleClick(1)}>
+            <Card.Body>
+                <Card.Title>Advanced</Card.Title>
+                <Card.Text>
+                Easily split your donations among various organisations
+                </Card.Text>
+            </Card.Body>
+            </Card>
         </>
     )
 }
