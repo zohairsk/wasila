@@ -1,0 +1,10 @@
+
+.dontype{
+    transition: transform 0.1s linear;
+  }
+  
+.dontype:hover {
+    transform: scale(1.1);
+    background-color: rgb(199, 228, 253);
+  }
+  

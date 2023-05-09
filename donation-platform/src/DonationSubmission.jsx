@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
-import NavbarComp from './Navbar';
+// import NavbarComp from './Navbar';
 import DonationType from './DonationType'
 import SimpleDonation from './SimpleDonation';
+import AdvancedDonation from './AdvancedDonation';
 
 export default function DonationSubmission(){
     const [option, setOption] = useState()
@@ -13,7 +14,7 @@ export default function DonationSubmission(){
     }
     return (
         <>
-            <NavbarComp></NavbarComp>
+            {/* <NavbarComp></NavbarComp> */}
             <h1 className='mb-3'>Donation Submission</h1>
             {flag ? 
                 <>
@@ -22,7 +23,7 @@ export default function DonationSubmission(){
                 </Row>
                 </>
                 :
-                option ? <p>Advanced</p> : <SimpleDonation/>
+                option ? <AdvancedDonation/> : <SimpleDonation/>
             }
         </>
     )
