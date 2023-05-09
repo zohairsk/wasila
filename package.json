@@ -16,6 +16,8 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "multiselect-react-dropdown": "^2.0.25",
-    "react-bootstrap": "^2.7.4"
+    "react-bootstrap": "^2.7.4",
+    "react-router": "^6.11.1",
+    "react-router-dom": "^6.11.1"
   }
 }
