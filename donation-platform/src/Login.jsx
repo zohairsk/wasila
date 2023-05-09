@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './Navbar';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import { Outlet, Link } from "react-router-dom";
 
 export default function Login(){
     const users=[
@@ -52,7 +53,7 @@ export default function Login(){
                 </Form>
                 {loginAttempt && <p>Incorrect username or id. Please try again.</p>}
                 <p>Click 
-                    <a href="https://www.w3schools.com/" target="_blank"> here </a>
+                    <Link to="/Signup"> here </Link>
                 if you are a new user</p>
             </div>
         </div>
