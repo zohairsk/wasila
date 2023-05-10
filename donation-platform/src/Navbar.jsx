@@ -4,12 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Form, FormControl, Button} from 'react-bootstrap';
 import React, {Component} from 'react'
+import { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home';
+import Login from './Login';
 
-export default class NavbarComp extends Component {
-    render() {
+export default function NavbarComp({loginState, setLoginState}) {
+
         return (
             <div>
             <Navbar bg="light" expand="lg" style={{ width: '100%', position: 'fixed', top: 0, left: 0, marginBottom: '5%', backgroundColor: 'grey'}}>
@@ -42,18 +44,30 @@ export default class NavbarComp extends Component {
                         <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5Zm0 1H7.5v3h-6l2.25-3ZM8.5 4V1h3.75l2.25 3h-6ZM15 5v10H1V5h14Z"/>
                         </svg>
                     </Nav.Link>
+                    </Nav>
+                    <Nav className="ml-auto">
+                    {!(loginState) ? 
                     <Nav.Link as={Link} to="/Login" className="mx-2">Login
-                        <svg xmlns="http://www.w3.org/2000/svg" style={{marginLeft: '3px'}} width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" style={{marginLeft: '3px'}} width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
                     </Nav.Link>
+                    :
+                    <NavDropdown title="Hello, {firstname}" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">Donation History</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item as={Link} to='/' onClick={() => setLoginState(false)}>
+                        Sign Out
+                    </NavDropdown.Item>
+                    </NavDropdown>
+                    }
                 </Nav>
                 </Navbar.Collapse>
             </Container>
             </Navbar>
             </div>
         )
-    }
 }
+
 

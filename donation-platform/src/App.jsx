@@ -24,14 +24,29 @@ function App() {
     return setCards(!cards);
   }
 
+  const users=[
+    {
+        'email': 'a@gmail.com',
+        'password': '123',
+        'firstname' : 'Aleena'
+    },
+    {
+        'email': 'b@gmail.com',
+        'password': '123',
+        'firstname' : 'Bhavya'
+    }
+  ]
+
+  const [loginState, setLoginState] = useState(false)
+
   return (  <>
     <BrowserRouter>
-    <NavbarComp></NavbarComp>
+    <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
           <Route path="/Organizations" element={<DonationCards />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Donate" element={<DonationSubmission />} />
           <Route path="/Signup" element={<Signup />} />

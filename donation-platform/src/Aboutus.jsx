@@ -7,7 +7,7 @@ export default function Aboutus() {
     <>
         <Card  border='dark' bg='light' style={{width: '80%', margin: 'auto'}}>
         <Card.Body>
-          <Card.Title>About Us</Card.Title>
+          <Card.Title className='display-6'>About Us</Card.Title>
           <Card.Text>
           we r so cool and slay pls donate yummy we r so cool and slay pls donate yummywe r so cool and slay pls donate yummy
           we r so cool and slay pls donate yummywe r so cool and slay pls donate yummywe r so cool and slay pls donate yummy
