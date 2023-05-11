@@ -24,14 +24,29 @@ function App() {
     return setCards(!cards);
   }
 
+  const users=[
+    {
+        'email': 'a@gmail.com',
+        'password': '123',
+        'firstname' : 'Aleena'
+    },
+    {
+        'email': 'b@gmail.com',
+        'password': '123',
+        'firstname' : 'Bhavya'
+    }
+  ]
+
+  const [loginState, setLoginState] = useState(false)
+
   return (  <>
     <BrowserRouter>
-    <NavbarComp></NavbarComp>
+    <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
           <Route path="/Organizations" element={<DonationCards />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Donate" element={<DonationSubmission />} />
           <Route path="/Signup" element={<Signup />} />
@@ -44,3 +59,27 @@ function App() {
 }
 
 export default App
+
+// import { useState, useEffect } from 'react';
+// import DonationCards from './DonationCards';
+
+
+// function App() {
+//   const [organisations, setOrganisations] = useState([]);
+
+//   // useEffect(() => {
+//   //   fetch('http://localhost:8080/api/organisation')
+//   //     .then(response => response.json())
+//   //     .then(data => setOrganisations(data))
+//   //     .catch(error => console.error(error));
+//   // }, []);
+
+//   return (
+//     <div>
+//       <h1>Organisations</h1>
+//       <DonationCards></DonationCards>
+//     </div>
+//   );
+// }
+
+// export default App;
