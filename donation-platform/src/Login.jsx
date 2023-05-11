@@ -3,21 +3,12 @@ import NavbarComp from './Navbar';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
+import App from './App';
 
-export default function Login(){
-    const users=[
-        {
-            'email': 'a@gmail.com',
-            'password': '123'
-        },
-        {
-            'email': 'b@gmail.com',
-            'password': '123'
-        }
-    ]
+export default function Login({loginState, setLoginState, users}){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [loginState, setLoginState] = useState(false)
+    // const [loginState, setLoginState] = useState(false)
     const [loginAttempt, setLoginAttempt] = useState(false)
 
     function verifyUser(e){

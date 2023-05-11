@@ -8,7 +8,7 @@ import DonationSubmission from './DonationSubmission';
 export default function Home({cards,setCards}){
     return (
     <>
-        <h1>Donation Platform</h1>
+        <h1 >Donation Platform</h1>
         <br></br>
         <img src="../images/icon.png"></img>
         <br></br><br></br>
