@@ -15,9 +15,9 @@ export default function DonationSubmission(){
     return (
         <>
             {/* <NavbarComp></NavbarComp> */}
-            <h1 className='mb-3'>Donation Submission</h1>
             {flag ? 
                 <>
+                <h1 className='mb-3'>Donation Submission</h1>
                 <Row>
                 <DonationType handleClick={handleDonationType}/>
                 </Row>

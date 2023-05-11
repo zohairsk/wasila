@@ -11,15 +11,15 @@ export default function DonationCards(){
     const org_array = [
         {name: "Edhi Foundation",
     description: "slay"},
-    {name: "Aleena FOundation",
+    {name: "Aleena Foundation",
     description: "yummy"
     },{name: "Edhi Foundation",
     description: "slay"},
-    {name: "Aleena FOundation",
+    {name: "Aleena Foundation",
     description: "yummy"
     },{name: "Edhi Foundation",
     description: "slay"},
-    {name: "Aleena FOundation",
+    {name: "Aleena Foundation",
     description: "yummy"
     }
     ]
@@ -32,7 +32,7 @@ export default function DonationCards(){
         orgData.push(
         <Row>
         <Col>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem'}} className='mt-3'>
         <Card.Img variant="top" src="Edhi-foundation.png" />
         <Card.Body>
             <Card.Title>{org_array[((i+1)*3)-3].name}</Card.Title>
@@ -44,7 +44,7 @@ export default function DonationCards(){
         </Card>
         </Col>
         <Col>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem' }} className='mt-3'>
         <Card.Img variant="top" src="Edhi-foundation.png" />
         <Card.Body>
             <Card.Title>{org_array[((i+1)*3)-2].name}</Card.Title>
@@ -56,7 +56,7 @@ export default function DonationCards(){
         </Card>
         </Col>
         <Col>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem' }} className='mt-3'>
         <Card.Img variant="top" src="Edhi-foundation.png" />
         <Card.Body>
             <Card.Title>{org_array[((i+1)*3)-1].name}</Card.Title>

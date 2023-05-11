@@ -45,7 +45,7 @@ function App() {
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
-          <Route path="/Organizations" element={<DonationCards />} />
+          <Route path="/Organizations" element={<Donationinfo/>} />
           <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Donate" element={<DonationSubmission />} />
