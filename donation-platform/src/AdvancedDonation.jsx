@@ -5,21 +5,29 @@ import { Button } from 'react-bootstrap';
 
 
 export default function AdvancedDonation(){
-    const data = [
-        {
-            "name": "Edhi Foundation"
-        },
-        {
-            "name": "Akhuwat Foundation"
-        },
-        {
-            "name": "Chhipa Foundation"
-        },
-        {
-            "name": "Aleena Foundation"
-        }
-    ]
-    const [org, setOrg] = useState(data)
+    // const data = [
+    //     {
+    //         "name": "Edhi Foundation"
+    //     },
+    //     {
+    //         "name": "Akhuwat Foundation"
+    //     },
+    //     {
+    //         "name": "Chhipa Foundation"
+    //     },
+    //     {
+    //         "name": "Aleena Foundation"
+    //     }
+    // ]
+
+    const [org, setOrg] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:8080/api/organisation')
+        .then(response => response.json())
+        .then(data => setOrg(data))
+        .catch(error => console.error(error))
+    },[]);
+
     const [selectedOptions, setSelectedOptions] = useState([])
     const [paymentState, setPaymentState] = useState(false)
     const [checked, setChecked] = useState("")
@@ -72,9 +80,7 @@ export default function AdvancedDonation(){
         }
         return(!(sum==total))
     }
-    
-    let evenamount = parseInt(totalAmount.replace(/,/g, ""));
-    evenamount = evenamount/amounts;
+
 
     return (
         <div>
@@ -101,19 +107,7 @@ export default function AdvancedDonation(){
                     <Form.Control className = "my-3" required type="text" name="amount" placeholder="Amount" onChange={handleChange}></Form.Control>
                     {/* <button type="submit" className='border border-dark my-2'>Proceed Further</button> */}
                 </Form>
-                { evenlySplit ? 
-                <>
-                    {selectedOptions.map((val, index) => (
-                                <div style={{display: 'flex'}}>
-                                <Form.Label className="mx-5 pt-2" key={index}>{val}</Form.Label>
-                                <Form.Control className="m-1" placeholder={evenamount} style={{width: '25%', height: '30%'}} key={`input-${index}`} type="text" required onChange={handleAmount} disabled readonly></Form.Control>
-                                </div>
-                    ))}
-                    
-                </> 
-                :
-                <>  
-                    <h5>Split your amount by: </h5>
+                <h5>Split your amount by: </h5>
                     <Form className='ms-4 mt-2 py-2'>
                             <div className="mb-3">
                             <div>
@@ -137,7 +131,7 @@ export default function AdvancedDonation(){
                                     value="percentage"
                                     onChange = {(e)=> {
                                         setChecked(e.currentTarget.value)
-                                        // console.log(checked)
+                                        setEvenlySplit(!evenlySplit)
                                         }
                                     }
                                 />
@@ -149,11 +143,26 @@ export default function AdvancedDonation(){
                                     value="amount"
                                     onChange = {(e)=> {
                                         setChecked(e.currentTarget.value)
-                                        // console.log(checked)
+                                        setEvenlySplit(!evenlySplit)
                                         }
                                     }
                                 />
                             </div>
+                            </div>
+                            </Form>
+                { evenlySplit ? 
+                <>
+                    {selectedOptions.map((val, index) => (
+                                <div style={{display: 'flex'}}>
+                                <Form.Label className="mx-5 pt-2" key={index}>{val}</Form.Label>
+                                <Form.Control className="m-1" placeholder={parseInt(totalAmount.replace(/,/g, ""))/selectedOptions.length} style={{width: '25%', height: '30%'}} key={`input-${index}`} type="text" required onChange={handleAmount} disabled readonly></Form.Control>
+                                </div>
+                    ))}
+                    
+                </> 
+                :
+                <>  
+                <Form>
                             {selectedOptions.map((val, index) => (
                                 <div style={{display: 'flex'}}>
                                 <Form.Label className="mx-5 pt-2" key={index}>{val}</Form.Label>
@@ -162,11 +171,10 @@ export default function AdvancedDonation(){
                             ))}
 
                             {incorrectSplitAmount ? <><p>Yummy</p></> : <></>}
-                            </div>
-                            <Button className="mt-4" onClick={donationSplitCheck}>Submit</Button>
-                    </Form> 
+                </Form> 
                 </>
                 }
+                <Button className="mt-4" onClick={donationSplitCheck}>Submit</Button>
             </div> 
             </>
         </div>

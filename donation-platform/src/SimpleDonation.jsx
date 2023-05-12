@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 
 export default function SimpleDonation() {
-    const [organization, setOrganization] = useState("")
+    const [Organisations, setOrganisations] = useState([])
+    
+    useEffect(()=>{
+        fetch('http://localhost:8080/api/organisation')
+        .then(response => response.json())
+        .then(data => setOrganisations(data))
+        .catch(error => console.error(error))
+    },[]);
     const [amount, setAmount] = useState("")
     
     function handleClick(){
         console.log(event.target.id)
-        setOrganization(event.target.id)
+        // setOrganizations(event.target.id)
     }
     function handleChange(event){
         setAmount(event.target.value)
@@ -26,9 +33,15 @@ export default function SimpleDonation() {
                         Organization
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1" id="org1" onClick={()=>handleClick()}>Org 1</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2" id="org2" onClick={()=>handleClick()}>org 2</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3" id="org3" onClick={()=>handleClick()}>org 3</Dropdown.Item>
+                        {
+                            Organisations.map((Organisation,index) =>{
+                                return(
+                                    <>
+                                    <Dropdown.Item key={index} href={`action${index}`} id={`org${index}`} onClick={()=>handleClick()}>{Organisation.name}</Dropdown.Item>
+                                    </>
+                                )
+                            })
+                        }
                     </Dropdown.Menu>
                 </Dropdown>
                 <Form.Control className = "my-3" style={{position: 'relative', left: '32%', width: '10rem'}}  required type="text" name="amount" placeholder="Amount" onChange={handleChange}></Form.Control>
