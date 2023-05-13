@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import ReadMoreDonation from './ReadMoreDonation';
 import { useEffect, useState } from 'react';
 
 export default function DonationCards(){
@@ -16,118 +17,57 @@ export default function DonationCards(){
         .catch(error => console.error(error))
     },[])
 
+    
+    const [showDetails, setShowDetails] = useState(false);
+    const [description, setDescription] = useState('');
+    const [weblink, setWeblink] = useState('');
+    const [title, setTitle] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+
+    const handleReadMoreClick = (event) => {
+        Organisations.map(
+            Organisation => {
+                if (Organisation.name === event.target.previousSibling.previousSibling.innerText){
+                    setTitle(event.target.previousSibling.previousSibling.innerText)
+                    setDescription(Organisation.description)
+                    setWeblink(Organisation.weblink)
+                    setEmail(Organisation.email)
+                    setPhone(Organisation.contactno)
+            }
+        }
+        )
+        setShowDetails(true);
+      }
+
 
     return (
-        <>
+            <>  
+            {(showDetails) ?
+            <>
+            <ReadMoreDonation showDetails={showDetails} setShowDetails={setShowDetails} description={description} weblink={weblink} title={title} email={email} phone={phone}></ReadMoreDonation>
+            </>
+            : <></>}
+            <Row>
             {Organisations.map(
                 Organisation => {
                     return(
-                        <Row>
                         <Col>
-                        <Card style={{ width: '18rem'}} className='mt-3'>
-                        <Card.Img variant="top" src="Edhi-foundation.png" />
+                        <Card style={{width: '19rem', height: '30rem'}} className='mt-3'>
+                        <Card.Img style={{width: '19rem', height: '18rem'}} variant="top" src={Organisation.image} />
                         <Card.Body>
                             <Card.Title>{Organisation.name}</Card.Title>
                             <Card.Text>
                             {<a href={Organisation.weblink}>{Organisation.weblink}</a>}
                             </Card.Text>
-                            <Button variant="primary">Read More</Button>
+                            <Button variant="primary" onClick={handleReadMoreClick}>Read More</Button>
                         </Card.Body>
                         </Card>
-                        </Col>
-                        </Row>
+                        </Col>   
                     )
                 }
-            )}
+            )} 
+            </Row>
         </>
     )
 }
-
-
-// export default function DonationCards(){
-    
-//     //database se aaega
-//     const org_array = [
-//         {name: "Edhi Foundation",
-//     description: "slay"},
-//     {name: "Aleena Foundation",
-//     description: "yummy"
-//     },{name: "Edhi Foundation",
-//     description: "slay"},
-//     {name: "Aleena Foundation",
-//     description: "yummy"
-//     },{name: "Edhi Foundation",
-//     description: "slay"},
-//     {name: "Aleena Foundation",
-//     description: "yummy"
-//     }
-//     ]
-
-//     const orgData=[]
-//     const totalrows = org_array.length/3
-
-
-//     for (let i=0; i<totalrows; i++){
-//         orgData.push(
-//         <Row>
-//         <Col>
-//         <Card style={{ width: '18rem'}} className='mt-3'>
-//         <Card.Img variant="top" src="Edhi-foundation.png" />
-//         <Card.Body>
-//             <Card.Title>{org_array[((i+1)*3)-3].name}</Card.Title>
-//             <Card.Text>
-//             {org_array[((i+1)*3)-3].description}
-//             </Card.Text>
-//             <Button variant="primary">Read More</Button>
-//         </Card.Body>
-//         </Card>
-//         </Col>
-//         <Col>
-//         <Card style={{ width: '18rem' }} className='mt-3'>
-//         <Card.Img variant="top" src="Edhi-foundation.png" />
-//         <Card.Body>
-//             <Card.Title>{org_array[((i+1)*3)-2].name}</Card.Title>
-//             <Card.Text>
-//             {org_array[((i+1)*3)-2].description}
-//             </Card.Text>
-//             <Button variant="primary">Read More</Button>
-//         </Card.Body>
-//         </Card>
-//         </Col>
-//         <Col>
-//         <Card style={{ width: '18rem' }} className='mt-3'>
-//         <Card.Img variant="top" src="Edhi-foundation.png" />
-//         <Card.Body>
-//             <Card.Title>{org_array[((i+1)*3)-1].name}</Card.Title>
-//             <Card.Text>
-//             {org_array[((i+1)*3)-1].description}
-//             </Card.Text>
-//             <Button variant="primary">Read More</Button>
-//         </Card.Body>
-//         </Card>
-//         </Col>
-//         </Row>
-//         )
-//     }
-
-
-//     // const orgdata = org_array.map(org => (
-//     //     <>
-//     //     <Card style={{ width: '18rem' }}>
-//     //     <Card.Img variant="top" src="Edhi-foundation.png" />
-//     //     <Card.Body>
-//     //         <Card.Title>{org.name}</Card.Title>
-//     //         <Card.Text>
-//     //         {org.description}
-//     //         </Card.Text>
-//     //         <Button variant="primary">Read Mores</Button>
-//     //     </Card.Body>
-//     //     </Card>
-//     //     </>
-//     // ))
-//     return(
-//     <>
-//         {orgData}
-//     </>
-//     )
-// }
