@@ -1,17 +1,11 @@
-import Login from './Login';
-import Aboutus from './Aboutus';
-import Donationinfo from './Donationinfo';
-import Button from 'react-bootstrap/Button';
-import DonationSubmission from './DonationSubmission';
-import Info from './Info';
-
 
 export default function Home({cards,setCards}){
     return (
-    <>
+    <>  
+        <div style={{backgroundImage: `url("../images/background.jpeg")`, maxWidth: "100%", padding: '0px'}}/>
         <h1 >Donation Platform</h1>
         <br></br>
-        <img src="../images/icon.png"></img>
+        {/*<img src="../images/icon.png"></img> */}
         <br></br><br></br>
         <Aboutus></Aboutus>
         <br></br>
