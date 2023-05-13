@@ -25,9 +25,6 @@ export default function Login({loginState, setLoginState, users}){
         return;
     }
     
-    // function handleLogin(){
-    //     setLoginState(verifyUser(event, email, password))
-    // }
     return(
         <>
         <h1>Donation Platform</h1>
