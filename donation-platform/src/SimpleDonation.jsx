@@ -14,6 +14,7 @@ export default function SimpleDonation() {
     const [amount, setAmount] = useState("")
     
     function handleClick(){
+        event.preventDefault();
         console.log(event.target.id)
         // setOrganizations(event.target.id)
     }
@@ -24,7 +25,7 @@ export default function SimpleDonation() {
         <>
         <h2 className='mb-3'>Simple Donation</h2>
         <div className="border rounded" style={{width: '100%', height: '20rem' , backgroundColor: "rgb(240,248,255)", display: 'flex', flexDirection: 'column'}}>
-            <h6 className='mt-3 mx-3'>Simply choose your desired organization, 
+            <h6 className='mt-3 mx-3'> Simply choose your desired organization, 
             enter the amount<br>
             </br>and we will handle the rest for you!</h6>
             <Form className='ms-4 mt-2 py-2'>      

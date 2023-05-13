@@ -17,6 +17,7 @@ import FAQ from './FAQ';
 import Footer from './Footer';
 
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [cards,setCards]=useState(false)
@@ -39,7 +40,8 @@ function App() {
 
   const [loginState, setLoginState] = useState(false)
 
-  return (  <>
+  return (  
+  <>
     <BrowserRouter>
     <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
@@ -54,7 +56,7 @@ function App() {
       </Routes>
     
     {/* <Footer></Footer> */}
-    </BrowserRouter></>
+    </BrowserRouter></> 
   )
 }
 

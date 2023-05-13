@@ -25,7 +25,7 @@ export default function DonationCards(){
                         <Row>
                         <Col>
                         <Card style={{ width: '18rem'}} className='mt-3'>
-                        <Card.Img variant="top" src="Edhi-foundation.png" />
+                        <Card.Img variant="top" src={Organisation.image} />
                         <Card.Body>
                             <Card.Title>{Organisation.name}</Card.Title>
                             <Card.Text>
