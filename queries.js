@@ -59,7 +59,7 @@ export async function checkUser(){
 }
 
 export async function getOrganisationCauses(cause){
-  const rows = await pool.query("select organisation.name from organisation,causes,org_causes where (organisation.OrgID = org_causes.OrgID) and (causes.cid = org_causes.cid) and cause = ?",[cause]);
+  const rows = await pool.query("select organisation.name, organisation.description, organisation.weblink, organisation.image, organisation.email, organisation.contactno,  from organisation,causes,org_causes where (organisation.OrgID = org_causes.OrgID) and (causes.cid = org_causes.cid) and cause = ?",[cause]);
   return rows[0];
 }
 
@@ -69,7 +69,7 @@ export async function getCauses(){
 }
 
 export async function getProjects(name){
-  const rows = await pool.query("SELECT projects.name from projects,organisation where (projects.OrgID = organisation.OrgID) and (organisation.name = ?)",[name]);
+  const rows = await pool.query("SELECT projects.name, projects.amount from projects,organisation where (projects.OrgID = organisation.OrgID) and (organisation.name = ?)",[name]);
   return rows[0];
 }
 
