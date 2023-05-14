@@ -7,7 +7,7 @@ create table User(
     name varchar(45),
     email varchar(45),
     password varchar(100),
-    cardno varchar(19),
+    cardnum varchar(19),
     amountdonated decimal,
     primary key(UserID)
 );

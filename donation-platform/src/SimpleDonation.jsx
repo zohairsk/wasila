@@ -11,6 +11,31 @@ export default function SimpleDonation() {
         .then(data => setOrganisations(data))
         .catch(error => console.error(error))
     },[]);
+    const [causes, setCauses] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:8080/api/causes')
+        .then(response => response.json())
+        .then(data => setCauses(data))
+        .catch(error => console.error(error))
+    },[]);
+    console.log(causes)
+    const [causeorg, setCauseorg] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:8080/api/organisations/interest%20free%20loan')
+        .then(response => response.json())
+        .then(data => setCauseorg(data))
+        .catch(error => console.error(error))
+    },[]);
+    console.log(causeorg)
+    const [proj, setProj] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:8080/api/organisation/project/Edhi%20Foundation')
+        .then(response => response.json())
+        .then(data => setProj(data))
+        .catch(error => console.error(error))
+    },[]);
+    console.log(proj)
+
     const [amount, setAmount] = useState("")
     
     function handleClick(eventKey){
