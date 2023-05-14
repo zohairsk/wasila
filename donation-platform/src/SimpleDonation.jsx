@@ -13,9 +13,10 @@ export default function SimpleDonation() {
     },[]);
     const [amount, setAmount] = useState("")
     
-    function handleClick(){
-        event.preventDefault();
-        console.log(event.target.id)
+    function handleClick(eventKey){
+        // event.preventDefault();
+        console.log(eventKey)
+        // console.log("id", event.target.id)
         // setOrganizations(event.target.id)
     }
     function handleChange(event){
@@ -29,7 +30,7 @@ export default function SimpleDonation() {
             enter the amount<br>
             </br>and we will handle the rest for you!</h6>
             <Form className='ms-4 mt-2 py-2'>      
-                <Dropdown>
+                <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Organization
                     </Dropdown.Toggle>
@@ -38,7 +39,7 @@ export default function SimpleDonation() {
                             Organisations.map((Organisation,index) =>{
                                 return(
                                     <>
-                                    <Dropdown.Item key={index} href={`action${index}`} id={`org${index}`} onClick={()=>handleClick()}>{Organisation.name}</Dropdown.Item>
+                                    <Dropdown.Item key={index} eventKey={Organisation.name} id={`org${index}`}>{Organisation.name}</Dropdown.Item>
                                     </>
                                 )
                             })

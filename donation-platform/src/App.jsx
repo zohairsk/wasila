@@ -15,6 +15,7 @@ import DonationSubmission from './DonationSubmission';
 import Home from './Home';
 import FAQ from './FAQ';
 import Footer from './Footer';
+import Payment from './Payment'
 
 
 
@@ -25,18 +26,14 @@ function App() {
     return setCards(!cards);
   }
 
-  const users=[
-    {
-        'email': 'a@gmail.com',
-        'password': '123',
-        'firstname' : 'Aleena'
-    },
-    {
-        'email': 'b@gmail.com',
-        'password': '123',
-        'firstname' : 'Bhavya'
-    }
-  ]
+  const [users,setUsers] = useState([])
+  useEffect(()=>{
+    fetch("http://localhost:8080/api/login")
+    .then(response => response.json())
+    .then(data => setUsers(data))
+    .catch(error => console.error(error))
+  },[])
+  useEffect(()=>{console.log(users)},[users])
 
   const [loginState, setLoginState] = useState(false)
 
@@ -52,6 +49,7 @@ function App() {
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Donate" element={<DonationSubmission />} />
           <Route path="/Signup" element={<Signup />} />
+          <Route path="/Payment" element={<Payment />} />
           {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
     

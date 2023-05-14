@@ -41,6 +41,11 @@ app.get("/api/user/:name/:email/:password/:cardno",async(req,res) => {
     res.status(201).send(user)
 })
 
+app.get("/api/causes", async (req,res) =>{
+    const causes = await getCauses()
+    res.send(causes)
+})
+
 app.listen(8080,()=>{
     console.log('Server is running in port 8080')
 })

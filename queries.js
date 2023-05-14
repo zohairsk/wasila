@@ -16,6 +16,11 @@ export async function getOrganisations() {
   return rows[0];
 }
 
+export async function getCauses(){
+  const rows = await pool.query("Select * from Organisation")
+  return rows[0];
+}
+
 export async function getOrganisation(name) {
   const rows = await pool.query("Select * from Organisations where name = ?", [
     name,
