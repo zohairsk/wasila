@@ -15,6 +15,7 @@ import DonationSubmission from './DonationSubmission';
 import Home from './Home';
 import FAQ from './FAQ';
 import Footer from './Footer';
+import Spinner from 'react-bootstrap/Spinner';
 import Payment from './Payment'
 
 
@@ -25,6 +26,19 @@ function App() {
   function handlecards(){
     return setCards(!cards);
   }
+  const [showSpinner, setShowSpinner] = useState(true);
+
+  useEffect(() => {
+    // Set a timeout to hide the spinner after 2 seconds
+    const timeout = setTimeout(() => {
+      setShowSpinner(false);
+    }, 1000);
+
+    // Cleanup function to clear the timeout if the component unmounts before the 2 seconds are up
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [])
 
   const [users,setUsers] = useState([])
   useEffect(()=>{
@@ -40,6 +54,10 @@ function App() {
   return (  
   <>
     <BrowserRouter>
+    {showSpinner ? 
+    <Spinner animation="border" />
+    :
+    <>
     <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
       <Routes>
@@ -53,6 +71,8 @@ function App() {
           {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
     
+    </>}
+    
     {/* <Footer></Footer> */}
     </BrowserRouter></> 
   )
@@ -60,26 +80,3 @@ function App() {
 
 export default App
 
-// import { useState, useEffect } from 'react';
-// import DonationCards from './DonationCards';
-
-
-// function App() {
-//   const [organisations, setOrganisations] = useState([]);
-
-//   // useEffect(() => {
-//   //   fetch('http://localhost:8080/api/organisation')
-//   //     .then(response => response.json())
-//   //     .then(data => setOrganisations(data))
-//   //     .catch(error => console.error(error));
-//   // }, []);
-
-//   return (
-//     <div>
-//       <h1>Organisations</h1>
-//       <DonationCards></DonationCards>
-//     </div>
-//   );
-// }
-
-// export default App;
