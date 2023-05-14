@@ -29,7 +29,6 @@ export default function Donationinfo() {
           <NavbarComp></NavbarComp>
           <h5 className="display-6 text-center my-5">Access authentic and reliable information of charity organisations all across Pakistan, 
               all at one place.</h5>
-              <Searching></Searching>
           <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Filter by Cause

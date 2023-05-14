@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export default function Searching({filteredOrg, setFilteredOrg}){
 
     const [causes, setCauses] = useState([])
-   import Dropdown from 'react-bootstrap/Dropdown';
+   
 
     useEffect(()=>{
         fetch('http://localhost:8080/api/causes')

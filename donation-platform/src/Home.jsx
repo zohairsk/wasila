@@ -4,17 +4,26 @@ import Info from './Info'
 import Searching from './Searching'
 
 export default function Home({cards,setCards}){
+
+    function link1(){
+        window.location.href = "/Donate";
+    }
+    function link2(){
+        window.location.href = "/Organizations";
+    }
+
     return (
     <>  
-        <div className="mt-5" style={{backgroundImage: `url("../images/Waseela.png")`, overflow: "visible", backgroundSize: "cover", maxWidth: "100%", width: '100rem', height: '35rem', padding: '0px'}}>
+        <div className="mt-5" style={{backgroundImage: `url("../images/Waseela.png")`, overflow: "visible", backgroundSize: "cover", width: "100%", height: '35rem', padding: '0px'}}>
         <br></br>
         <br></br><br></br>
         <br></br>
-        {/* <Button type="button" size="lg" className="btn btn-info" onClick={()=>{handlecards()}}>Donation Data
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" style={{marginLeft: '5px'}} fill="currentColor" className="bi bi-bar-chart-line" viewBox="0 0 16 16">
-            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"/>
-            </svg>
-        </Button> */}
+        <div style={{marginLeft: "10%", padding: '1%', position: 'relative', top: '64%', left: '18%'}}>
+            <Button className="btn btn-success" style={{marginLeft:'10%', fontSize:'1.5rem'}} onClick={link1} type="button" size="lg" >Donate Now
+            </Button>
+            <Button className="btn btn-info" style={{marginLeft:'8%', fontSize:'1.5rem'}} onClick={link2} type="button" size="lg" >Where to Donate
+            </Button>
+        </div>
         </div>
         {/* {cards&&(<DonationCards/>)} */}
         <br></br>
