@@ -32,7 +32,7 @@ function App() {
     // Set a timeout to hide the spinner after 2 seconds
     const timeout = setTimeout(() => {
       setShowSpinner(false);
-    }, 1000);
+    }, 10);
 
     // Cleanup function to clear the timeout if the component unmounts before the 2 seconds are up
     return () => {
@@ -71,7 +71,8 @@ function App() {
           {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
     
-    </>}
+    </>
+    }
     
     {/* <Footer></Footer> */}
     </BrowserRouter></> 

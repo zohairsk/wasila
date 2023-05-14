@@ -7,12 +7,8 @@ export default function Home({cards,setCards}){
     return (
     <>  
         <div className="mt-5" style={{backgroundImage: `url("../images/Waseela.png")`, overflow: "visible", backgroundSize: "cover", maxWidth: "100%", width: '100rem', height: '35rem', padding: '0px'}}>
-        {/* <h1 >Donation Platform</h1> */}
         <br></br>
-        {/* <img src="../images/icon.png"></img> */}
         <br></br><br></br>
-        {/* <Aboutus></Aboutus> */}
-        {/* <Searching></Searching> */}
         <br></br>
         {/* <Button type="button" size="lg" className="btn btn-info" onClick={()=>{handlecards()}}>Donation Data
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" style={{marginLeft: '5px'}} fill="currentColor" className="bi bi-bar-chart-line" viewBox="0 0 16 16">
@@ -21,6 +17,8 @@ export default function Home({cards,setCards}){
         </Button> */}
         </div>
         {/* {cards&&(<DonationCards/>)} */}
+        <br></br>
+        <Aboutus></Aboutus>
         <br></br>
         <Info></Info>
       </>
