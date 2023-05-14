@@ -1,10 +1,5 @@
-import Login from './Login';
 import Aboutus from './Aboutus';
-import Donationinfo from './Donationinfo';
 import Button from 'react-bootstrap/Button';
-import DonationSubmission from './DonationSubmission';
-
-
 
 export default function Home({cards,setCards}){
     return (

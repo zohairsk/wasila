@@ -15,6 +15,7 @@ import DonationSubmission from './DonationSubmission';
 import Home from './Home';
 import FAQ from './FAQ';
 import Footer from './Footer';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function App() {
@@ -23,6 +24,19 @@ function App() {
   function handlecards(){
     return setCards(!cards);
   }
+  const [showSpinner, setShowSpinner] = useState(true);
+
+  useEffect(() => {
+    // Set a timeout to hide the spinner after 2 seconds
+    const timeout = setTimeout(() => {
+      setShowSpinner(false);
+    }, 1000);
+
+    // Cleanup function to clear the timeout if the component unmounts before the 2 seconds are up
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [])
 
   const users=[
     {
@@ -41,17 +55,23 @@ function App() {
 
   return (  <>
     <BrowserRouter>
+    {showSpinner ? 
+    <Spinner animation="border" />
+    :
+    <>
     <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
-      <Routes>
-          <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
-          <Route path="/Organizations" element={<Donationinfo/>} />
-          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
-          <Route path="/FAQ" element={<FAQ />} />
-          <Route path="/Donate" element={<DonationSubmission />} />
-          <Route path="/Signup" element={<Signup />} />
-          {/* <Route path="*" element={<NoPage />} /> */}
-      </Routes>
+    <Routes>
+        <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
+        <Route path="/Organizations" element={<Donationinfo/>} />
+        <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
+        <Route path="/FAQ" element={<FAQ />} />
+        <Route path="/Donate" element={<DonationSubmission />} />
+        <Route path="/Signup" element={<Signup />} />
+        {/* <Route path="*" element={<NoPage />} /> */}
+    </Routes>
+    
+    </>}
     
     {/* <Footer></Footer> */}
     </BrowserRouter></>
@@ -60,26 +80,3 @@ function App() {
 
 export default App
 
-// import { useState, useEffect } from 'react';
-// import DonationCards from './DonationCards';
-
-
-// function App() {
-//   const [organisations, setOrganisations] = useState([]);
-
-//   // useEffect(() => {
-//   //   fetch('http://localhost:8080/api/organisation')
-//   //     .then(response => response.json())
-//   //     .then(data => setOrganisations(data))
-//   //     .catch(error => console.error(error));
-//   // }, []);
-
-//   return (
-//     <div>
-//       <h1>Organisations</h1>
-//       <DonationCards></DonationCards>
-//     </div>
-//   );
-// }
-
-// export default App;

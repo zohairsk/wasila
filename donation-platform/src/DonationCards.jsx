@@ -43,11 +43,9 @@ export default function DonationCards(){
 
     return (
             <>  
-            {(showDetails) ?
-            <>
-            <ReadMoreDonation showDetails={showDetails} setShowDetails={setShowDetails} description={description} weblink={weblink} title={title} email={email} phone={phone}></ReadMoreDonation>
-            </>
-            : <></>}
+            {(showDetails) &&
+                <ReadMoreDonation showDetails={showDetails} setShowDetails={setShowDetails} description={description} weblink={weblink} title={title} email={email} phone={phone}></ReadMoreDonation>
+            }
             <Row>
             {Organisations.map(
                 Organisation => {

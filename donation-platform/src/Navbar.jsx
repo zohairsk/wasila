@@ -14,7 +14,7 @@ export default function NavbarComp({loginState, setLoginState}) {
 
         return (
             <div>
-            <Navbar bg="light" expand="lg" style={{ width: '100%', position: 'fixed', top: 0, left: 0, marginBottom: '5%', backgroundColor: 'grey'}}>
+            <Navbar bg="light" fixed="top" expand="lg" style={{ width: '100%', position: 'fixed', top: 0, left: 0, marginBottom: '5%', backgroundColor: 'grey'}}>
             <Container>
                 <Navbar.Brand as={Link} to="/">Donation Platform</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
