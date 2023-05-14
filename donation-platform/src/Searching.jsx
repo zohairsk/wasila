@@ -1,13 +1,11 @@
 import {useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-export default function Searching(){
-
-    const handleClick = (eventKey) => {
-        console.log(eventKey)}
-
+export default function Searching({filteredOrg, setFilteredOrg}){
 
     const [causes, setCauses] = useState([])
+   import Dropdown from 'react-bootstrap/Dropdown';
+
     useEffect(()=>{
         fetch('http://localhost:8080/api/causes')
         .then(response => response.json())
@@ -15,18 +13,21 @@ export default function Searching(){
         .catch(error => console.error(error))
     },[]);
     
-    // const [causeorg, setCauseorg] = useState([])
-    // useEffect(()=>{
-    //     fetch('http://localhost:8080/api/organisations/{causes}')
-    //     .then(response => response.json())
-    //     .then(data => setCauseorg(data))
-    //     .catch(error => console.error(error))
-    // },[]);
+    const handleClick = (eventKey) => {
+        console.log(eventKey)}
+
+
+    // const [causes, setCauses] = useState([])
     
+    // useEffect(()=>{
+    //     fetch('http://localhost:8080/api/causes')
+    //     .then(response => response.json())
+    //     .then(data => setCauses(data))
+    //     .catch(error => console.error(error))
+    // },[])
 
     return (
         <>
-        <p>slay</p>
             <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Filter by Cause

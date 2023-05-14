@@ -11,21 +11,41 @@ export default function SimpleDonation() {
         .then(data => setOrganisations(data))
         .catch(error => console.error(error))
     },[]);
-   
-    const [proj, setProj] = useState([])
+    
+
+    const [proj, setProj] = useState([
+        {
+            'name': 'Sadqah', 
+            'amount': '0'
+        },
+        {
+            'name': 'Kaffan', 
+            'amount': '100'
+        }
+    ])
+    const [orgSelected, setOrgSelected] = useState(false)
+
+    const [organization, setOrganization] = useState('')
     useEffect(()=>{
-        fetch('http://localhost:8080/api/organisation/project/Edhi%20Foundation')
+        fetch('http://localhost:8080/api/organisation/project/{organization}')
         .then(response => response.json())
         .then(data => setProj(data))
         .catch(error => console.error(error))
-    },[]);
-    console.log(proj)
+    },[organization]);
 
     const [amount, setAmount] = useState("")
+    const [projAmount, setProjAmount] = useState('')
     
     function handleClick(eventKey){
-        console.log(eventKey)
+        setOrganization(eventKey);
+        console.log(organization);
+        console.log(proj);
     }
+    // function handleProject(eventKey){
+    //     for(let i=0;i<proj.length;i++){
+    //         if(proj[i].name)
+    //     }
+    // }
     function handleChange(event){
         setAmount(event.target.value)
     }
@@ -53,6 +73,27 @@ export default function SimpleDonation() {
                         }
                     </Dropdown.Menu>
                 </Dropdown>
+                {orgSelected ? 
+                <>
+                    <Dropdown onSelect={handleProject}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Projects
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {
+                            proj.map((proj,index) =>{
+                                return(
+                                    <>
+                                    <Dropdown.Item key={index} eventKey={proj.name} id={`org${index}`}>{proj.name}</Dropdown.Item>
+                                    </>
+                                )
+                            })
+                        }
+                    </Dropdown.Menu>
+                </Dropdown>
+                </> 
+
+                : <></>}
                 <Form.Control className = "my-3" style={{position: 'relative', left: '32%', width: '10rem'}}  required type="text" name="amount" placeholder="Amount" onChange={handleChange}></Form.Control>
                 <button type="submit" className='border border-dark'>Donate</button>
             </Form>
