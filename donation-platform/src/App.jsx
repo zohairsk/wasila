@@ -18,6 +18,7 @@ import Footer from './Footer';
 import Spinner from 'react-bootstrap/Spinner';
 
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [cards,setCards]=useState(false)
@@ -53,7 +54,8 @@ function App() {
 
   const [loginState, setLoginState] = useState(false)
 
-  return (  <>
+  return (  
+  <>
     <BrowserRouter>
     {showSpinner ? 
     <Spinner animation="border" />
@@ -74,7 +76,7 @@ function App() {
     </>}
     
     {/* <Footer></Footer> */}
-    </BrowserRouter></>
+    </BrowserRouter></> 
   )
 }
 

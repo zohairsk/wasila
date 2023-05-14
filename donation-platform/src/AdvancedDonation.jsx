@@ -5,20 +5,6 @@ import { Button } from 'react-bootstrap';
 
 
 export default function AdvancedDonation(){
-    // const data = [
-    //     {
-    //         "name": "Edhi Foundation"
-    //     },
-    //     {
-    //         "name": "Akhuwat Foundation"
-    //     },
-    //     {
-    //         "name": "Chhipa Foundation"
-    //     },
-    //     {
-    //         "name": "Aleena Foundation"
-    //     }
-    // ]
 
     const [org, setOrg] = useState([])
     useEffect(()=>{
@@ -28,12 +14,17 @@ export default function AdvancedDonation(){
         .catch(error => console.error(error))
     },[]);
 
-    const [selectedOptions, setSelectedOptions] = useState([])
-    const [paymentState, setPaymentState] = useState(false)
-    const [checked, setChecked] = useState("")
-    const   [amounts, setAmounts] = useState([])
-    const [totalAmount, setTotalAmount] = useState("")
-    const [incorrectSplitAmount, setIncorrectSplitAmount] = useState(false)
+    const [selectedOptions, setSelectedOptions] = useState([]) //to keep track of organizations user selected
+
+    const [checked, setChecked] = useState("") //keep track of payment split style (evenly, by percentage, or by amount)
+    
+    const   [amounts, setAmounts] = useState([]) //ARRAY OF OBJECTS containing org name and amount. WILL BE SENT TO DATABASE FOR RECORD!
+    //e.g [{org: Edhi Foundation, amount: 5000}, {org: SKMH, amount: 3000}]
+
+    const [totalAmount, setTotalAmount] = useState("") //variable which has total amount entered by user
+
+    const [incorrectSplitAmount, setIncorrectSplitAmount] = useState(false) //if splitting does not equal total
+
     const [evenlySplit, setEvenlySplit] = useState(false)
 
     const handleChange = (event) => {
@@ -41,7 +32,7 @@ export default function AdvancedDonation(){
     }
     function handleSubmit(){
         event.preventDefault();
-        setPaymentState(true);
+        // setPaymentState(true);
     }
     function handleAmount(e){
         const label = event.target.previousSibling.innerText;
@@ -58,7 +49,7 @@ export default function AdvancedDonation(){
           else {
             // Add new object
             const newObj = { "org": label, "amount": amount };
-            setAmounts((prevAmounts) => [...prevAmounts, newObj]);
+            setAmounts((prevAmounts) => [...prevAmounts, newObj]); 
         }
     }
     function donationSplitCheck(){
@@ -91,65 +82,61 @@ export default function AdvancedDonation(){
                 organization or split the amount evenly.</h6>
             </div>
             <div className="border rounded py-4 px-3" style={{width: '30rem', height: '100%' , backgroundColor: "rgb(240,248,255)",}}>        
-                <Form className='ms-4 mt-2 py-2' onSubmit={handleSubmit}>      
-                    <Multiselect options={org} displayValue="name" 
-                    onSelect={(selectedList, selectedValue) => 
-                        {
-                            setSelectedOptions([...selectedOptions, selectedValue.name]) 
-                        }
+            <Form className='ms-4 mt-2 py-2' onSubmit={handleSubmit}>      
+                <Multiselect options={org} displayValue="name" 
+                onSelect={(selectedList, selectedValue) => 
+                    {
+                        setSelectedOptions([...selectedOptions, selectedValue.name]) 
                     }
-                    onRemove={(selectedList, selectedValue) => 
-                        {
-                            setSelectedOptions(selectedOptions.filter(item => item !== selectedValue.name))
-                        }
+                }
+                onRemove={(selectedList, selectedValue) => 
+                    {
+                        setSelectedOptions(selectedOptions.filter(item => item !== selectedValue.name))
                     }
-                    />
-                    <Form.Control className = "my-3" required type="text" name="amount" placeholder="Amount" onChange={handleChange}></Form.Control>
-                    {/* <button type="submit" className='border border-dark my-2'>Proceed Further</button> */}
-                </Form>
+                }
+                />
+                <Form.Control className = "my-3" required type="text" name="amount" placeholder="Amount" onChange={handleChange}></Form.Control>
                 <h5>Split your amount by: </h5>
-                    <Form className='ms-4 mt-2 py-2'>
-                            <div className="mb-3">
-                            <div>
-                                <Form.Check
-                                    inline
-                                    label="Split evenly"
-                                    name="splitType"
-                                    type='radio'
-                                    value="even"
-                                    onChange = {(e)=> {
-                                        setEvenlySplit(!evenlySplit)
-                                    }
-                                    }
-                                />
-                                <p className="mt-2"> OR </p>
-                                <Form.Check
-                                    inline
-                                    label="Percentage"
-                                    name="splitType"
-                                    type='radio'
-                                    value="percentage"
-                                    onChange = {(e)=> {
-                                        setChecked(e.currentTarget.value)
-                                        setEvenlySplit(!evenlySplit)
-                                        }
-                                    }
-                                />
-                                <Form.Check
-                                    inline
-                                    label="Exact Amount"
-                                    name="splitType"
-                                    type='radio'
-                                    value="amount"
-                                    onChange = {(e)=> {
-                                        setChecked(e.currentTarget.value)
-                                        setEvenlySplit(!evenlySplit)
-                                        }
-                                    }
-                                />
-                            </div>
-                            </div>
-                            </Form>
+                <div className="mb-3">
+                <div>
+                    <Form.Check
+                        inline
+                        label="Split evenly"
+                        name="splitType"
+                        type='radio'
+                        value="even"
+                        onChange = {(e)=> {
+                            setEvenlySplit(true)
+                        }
+                        }
+                    />
+                    <p className="mt-2"> OR </p>
+                    <Form.Check
+                        inline
+                        label="Percentage"
+                        name="splitType"
+                        type='radio'
+                        value="percentage"
+                        onChange = {(e)=> {
+                            setChecked(e.currentTarget.value)
+                            evenlySplit ?  setEvenlySplit(!evenlySplit) : setEvenlySplit(evenlySplit);
+                        }
+                        }
+                        />
+                        <Form.Check
+                            inline
+                            label="Exact Amount"
+                            name="splitType"
+                            type='radio'
+                            value="amount"
+                            onChange = {(e)=> {
+                                setChecked(e.currentTarget.value)
+                                evenlySplit ? setEvenlySplit(!evenlySplit) : setEvenlySplit(evenlySplit);
+                            }
+                            }
+                        />
+                    </div>
+                    </div>
                 { evenlySplit ? 
                 <>
                     {selectedOptions.map((val, index) => (
@@ -162,7 +149,6 @@ export default function AdvancedDonation(){
                 </> 
                 :
                 <>  
-                <Form>
                             {selectedOptions.map((val, index) => (
                                 <div style={{display: 'flex'}}>
                                 <Form.Label className="mx-5 pt-2" key={index}>{val}</Form.Label>
@@ -170,11 +156,11 @@ export default function AdvancedDonation(){
                                 </div>
                             ))}
 
-                            {incorrectSplitAmount ? <><p>Yummy</p></> : <></>}
-                </Form> 
+                            {incorrectSplitAmount ? <><p>Amount divided must equal the total amount specified.</p></> : <></>} 
                 </>
                 }
                 <Button className="mt-4" onClick={donationSplitCheck}>Submit</Button>
+            </Form>
             </div> 
             </>
         </div>

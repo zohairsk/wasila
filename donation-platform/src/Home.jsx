@@ -1,13 +1,13 @@
-import Aboutus from './Aboutus';
-import Button from 'react-bootstrap/Button';
-
+import Aboutus from './Aboutus'
+import Button from 'react-bootstrap/Button'
+import Info from './Info'
 export default function Home({cards,setCards}){
     return (
     <>  
-        <div style={{backgroundImage: `url("../images/background.jpeg")`, maxWidth: "100%", padding: '0px'}}>
+        <div className="mt-5" style={{backgroundImage: `url("../images/bg.jpg")`, maxWidth: "100%", width: '100rem', height: '35rem', padding: '0px'}}>
         <h1 >Donation Platform</h1>
         <br></br>
-        {/*<img src="../images/icon.png"></img> */}
+        <img src="../images/icon.png"></img>
         <br></br><br></br>
         <Aboutus></Aboutus>
         <br></br>
@@ -18,6 +18,8 @@ export default function Home({cards,setCards}){
         </Button>
         </div>
         {/* {cards&&(<DonationCards/>)} */}
+        <br></br>
+        <Info></Info>
       </>
     )
 }

@@ -1,5 +1,5 @@
 import express from 'express'
-import {getOrganisations,getOrganisation,getOrganisationOnLocation,userinfo,userDonation} from './queries.js'
+import {getOrganisations,getOrganisation,getOrganisationOnLocation,userinfo, userDonation} from './queries.js'
 import cors from 'cors'
 
 
