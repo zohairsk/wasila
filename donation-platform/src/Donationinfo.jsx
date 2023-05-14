@@ -8,11 +8,8 @@ export default function Donationinfo() {
       <>
        <section>
           <NavbarComp></NavbarComp>
-          {/* <h1>Donation Platform</h1> */}
-          <div>
-            <p>Access authentic and reliable information of charity organisations all across Pakistan, 
-              all at one place.</p>
-          </div>
+          <h5 className="display-6 text-center my-5">Access authentic and reliable information of charity organisations all across Pakistan, 
+          all at one place.</h5>
           <DonationCards></DonationCards>
        </section>
       </>
