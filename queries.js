@@ -16,11 +16,6 @@ export async function getOrganisations() {
   return rows[0];
 }
 
-export async function getCauses(){
-  const rows = await pool.query("Select * from Organisation")
-  return rows[0];
-}
-
 export async function getOrganisation(name) {
   const rows = await pool.query("Select * from Organisations where name = ?", [
     name,
@@ -51,11 +46,30 @@ export async function userDonation(id) {
 
 
 
-export async function createUser(name,email,password,cardno) {
+export async function createUser(userid,name,email,password,cardno,city,address) {
   const rows = await pool.query(
-    "insert into User (name,email, password, cardno) VALUES (?, ?, ?, ?)",
-    [name,email,password,cardno]
+    "insert into User (UserID,name,email, password, cardnum,city,address) VALUES (?,?, ?, ?, ?,?,?)",
+    [userid,name,email,password,cardno,city,address]
   );
-  return getNote(rows[0].insertId);
+}
+
+export async function checkUser(){
+  const rows = await pool.query("select * from User");
+  return rows[0];
+}
+
+export async function getOrganisationCauses(cause){
+  const rows = await pool.query("select organisation.name from organisation,causes,org_causes where (organisation.OrgID = org_causes.OrgID) and (causes.cid = org_causes.cid) and cause = ?",[cause]);
+  return rows[0];
+}
+
+export async function getCauses(){
+  const rows = await pool.query("select cause from causes");
+  return rows[0];
+}
+
+export async function getProjects(name){
+  const rows = await pool.query("SELECT projects.name from projects,organisation where (projects.OrgID = organisation.OrgID) and (organisation.name = ?)",[name]);
+  return rows[0];
 }
 

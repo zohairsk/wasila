@@ -1,7 +1,6 @@
 import express from 'express'
-import {getOrganisations,getOrganisation,getOrganisationOnLocation,userinfo, userDonation} from './queries.js'
+import {getOrganisations,getOrganisation,getOrganisationOnLocation,userinfo,userDonation,createUser,checkUser,getOrganisationCauses,getCauses,getProjects} from './queries.js'
 import cors from 'cors'
-
 
 const app = express()
 app.use(cors())
@@ -17,10 +16,12 @@ app.get("/api/organisation/:name", async (req,res) => {
     res.send(organisations)
 })
 
-app.get("/api/organisation/:location", async (req,res) =>{
-    const location = req.params.location
-    const organiations = await getOrganisationOnLocation(location)
-    res.send(organiations)
+app.post("/api/organisation", async (req,res) =>{
+    const temp = req.body
+    const {location} = req.body
+    console.log(req.body)
+    await getOrganisationOnLocation(location)
+    res.status(200).send("successful")
 })
 
 app.get("/api/user/:id", async (req,res) =>{
@@ -35,15 +36,34 @@ app.get("/api/user/donation/:id", async (req,res) =>{
     res.send(donation)
 })
 
-app.get("/api/user/:name/:email/:password/:cardno",async(req,res) => {
-    const { name,email,password,cardno } = req.params
-    const user = createUser(name,email,password,cardno)
-    res.status(201).send(user)
+app.post("/api/signup",async(req,res) => {
+    const temp = req.body
+    const {userID,name,email,password,cardno,city,address} = req.body
+    console.log(req.body)
+    await createUser(userID,name,email,password,cardno,city,address)
+    res.status(200).send("successful")
+})
+
+app.get("/api/login",async(req,res) => {
+    const user = await checkUser()
+    res.send(user)
+})
+
+app.get("/api/organisations/:cause", async (req,res) =>{
+    const cause = req.params.cause
+    const organisations = await getOrganisationCauses(cause)
+    res.send(organisations)
 })
 
 app.get("/api/causes", async (req,res) =>{
     const causes = await getCauses()
     res.send(causes)
+})
+
+app.get("/api/organisation/project/:name", async (req,res) =>{
+    const name = req.params.name
+    const projects = await getProjects(name)
+    res.send(projects)
 })
 
 app.listen(8080,()=>{
