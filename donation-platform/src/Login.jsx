@@ -47,7 +47,6 @@ export default function Login({loginState, setLoginState, users, loginRequired})
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
             </Toast>}
-        <>
         <Row>
             <Col style={{marginRight: "10%"}}>
                 <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>
@@ -66,7 +65,6 @@ export default function Login({loginState, setLoginState, users, loginRequired})
                         if you are a new user</p>
                     </div>
                 </div>
-        </>
             </Col>
         </Row>
         </>
