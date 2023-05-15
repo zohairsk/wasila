@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import ReadMoreDonation from './ReadMoreDonation';
 import { useEffect, useState } from 'react';
 
-export default function DonationCards({filteredOrg, setFilteredOrg, causes}){
+export default function DonationCards({filteredOrg, setFilteredOrg, selectedCause}){
     
     const [Organisations,setOrganisations] = useState([])
     
@@ -16,16 +16,14 @@ export default function DonationCards({filteredOrg, setFilteredOrg, causes}){
             .then(data => setOrganisations(data))
             .catch(error => console.error(error))
     },[])
-
-    const [causeOrg, setCauseOrg] = useState(['Edhi Foundation', 'Akhuwat Foundation'])
-    // useEffect(()=>{
-    //         fetch('http://localhost:8080/api/organisations/{causes}')
-    //         .then(response => response.json())
-    //         .then(data => setCauseOrg(data))
-    //         .catch(error => console.error(error))
-    // },[causes]);
-       
-    
+    console.log(`http://localhost:8080/api/organisations/${selectedCause}`)
+    const [causeOrg, setCauseOrg] = useState([])
+    useEffect(()=>{
+            fetch(`http://localhost:8080/api/organisations/${selectedCause}`)
+            .then(response => response.json())
+            .then(data => setCauseOrg(data))
+            .catch(error => console.error(error))
+    },[selectedCause]);
 
     const [showDetails, setShowDetails] = useState(false);
     const [description, setDescription] = useState('');
@@ -65,7 +63,10 @@ export default function DonationCards({filteredOrg, setFilteredOrg, causes}){
                             <Card style={{width: '19rem', height: '30rem'}} className='mt-3'>
                             {/* <Card.Img style={{width: '19rem', height: '18rem'}} variant="top" src={Organisation.image} /> */}
                             <Card.Body>
-                                <Card.Title>{org}</Card.Title>
+                                <Card.Title>{org.name}</Card.Title>
+                                <Card.Text>
+                                {<a href={org.weblink}>{org.weblink}</a>}
+                                </Card.Text>
                                 <Button variant="primary" onClick={handleReadMoreClick}>Read More</Button>
                             </Card.Body>
                             </Card>

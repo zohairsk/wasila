@@ -9,6 +9,7 @@ export default function Donationinfo() {
   const [filteredOrg, setFilteredOrg] = useState(false)
 
   const [causes, setCauses] = useState([])
+  const [selectedCause, setSelectedCause] = useState("")
    
     useEffect(()=>{
         fetch('http://localhost:8080/api/causes')
@@ -21,6 +22,7 @@ export default function Donationinfo() {
     const handleClick = (eventKey) => {
         console.log(eventKey)
         setFilteredOrg(true)
+        setSelectedCause(eventKey)
     }
     return (
       <>
@@ -45,7 +47,7 @@ export default function Donationinfo() {
                     </Dropdown.Menu>
             </Dropdown>
           {/* <Searching filteredOrg={filteredOrg} setFilteredOrg={setFilteredOrg}></Searching> */}
-          <DonationCards filteredOrg= {filteredOrg} setFilteredOrg={setFilteredOrg} causes={causes}></DonationCards> 
+          <DonationCards filteredOrg= {filteredOrg} setFilteredOrg={setFilteredOrg} selectedCause={selectedCause}></DonationCards> 
        </section>
       </>
     )

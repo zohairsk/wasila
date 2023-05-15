@@ -5,7 +5,11 @@ import DonationType from './DonationType'
 import SimpleDonation from './SimpleDonation';
 import AdvancedDonation from './AdvancedDonation';
 
-export default function DonationSubmission(){
+export default function DonationSubmission({loginState, loginRequired, setLoginRequired}){
+    function loginRedirect(){
+        setLoginRequired(true)
+        window.location.href = "/Login"
+    }
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
     function handleDonationType(id){
@@ -14,16 +18,22 @@ export default function DonationSubmission(){
     }
     return (
         <>
-            {/* <NavbarComp></NavbarComp> */}
-            {flag ? 
-                <>
-                <h1 className='mb-3'>Donation Submission</h1>
-                <Row>
-                <DonationType handleClick={handleDonationType}/>
-                </Row>
-                </>
-                :
-                option ? <AdvancedDonation/> : <SimpleDonation/>
+            {loginState ? 
+            <>
+                {
+                    flag ? 
+                    <>
+                    <h1 className='mb-3'>Donation Submission</h1>
+                    <Row>
+                    <DonationType handleClick={handleDonationType}/>
+                    </Row>
+                    </>
+                    :
+                    option ? <AdvancedDonation/> : <SimpleDonation/>
+                }
+            </>
+            :   
+                loginRedirect()
             }
         </>
     )

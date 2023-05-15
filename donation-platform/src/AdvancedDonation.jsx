@@ -51,6 +51,18 @@ export default function AdvancedDonation(){
             const newObj = { "org": label, "amount": amount };
             setAmounts((prevAmounts) => [...prevAmounts, newObj]); 
         }
+        console.log(amounts);
+    }
+    function handleEvenSplit(event){
+        event.preventDefault(); // Prevent form submission
+        if(evenlySplit){
+            console.log('helloooo')
+            const amountInputs = document.querySelectorAll('input[name="amount"]');
+    
+            // Retrieve values of each input field
+            const values = Array.from(amountInputs).map((input) => input.value);
+            console.log('Amounts:', values);
+        }
     }
     function donationSplitCheck(){
         let total = "";
@@ -82,7 +94,7 @@ export default function AdvancedDonation(){
                 organization or split the amount evenly.</h6>
             </div>
             <div className="border rounded py-4 px-3" style={{width: '30rem', height: '100%' , backgroundColor: "rgb(240,248,255)",}}>        
-            <Form className='ms-4 mt-2 py-2' onSubmit={handleSubmit}>      
+            <Form className='ms-4 mt-2 py-2' onSubmit={handleEvenSplit}>      
                 <Multiselect options={org} displayValue="name" 
                 onSelect={(selectedList, selectedValue) => 
                     {
@@ -142,7 +154,7 @@ export default function AdvancedDonation(){
                     {selectedOptions.map((val, index) => (
                                 <div style={{display: 'flex'}}>
                                 <Form.Label className="mx-5 pt-2" key={index}>{val}</Form.Label>
-                                <Form.Control className="m-1" placeholder={parseInt(totalAmount.replace(/,/g, ""))/selectedOptions.length} style={{width: '25%', height: '30%'}} key={`input-${index}`} type="text" required onChange={handleAmount} disabled readonly></Form.Control>
+                                <Form.Control className="m-1" name= "amount" placeholder={parseInt(totalAmount.replace(/,/g, ""))/selectedOptions.length} style={{width: '25%', height: '30%'}} key={`input-${index}`} onChange={handleAmount} type="text" required disabled readOnly></Form.Control>
                                 </div>
                     ))}
                     
