@@ -3,73 +3,47 @@ import Accordion from 'react-bootstrap/Accordion';
 export default function FAQ(){
     return (
         <>
-        <h2>Frequently Asked Questions</h2>
+        <h2 className='display-6'>Frequently Asked Questions</h2>
         <br></br>
         <Accordion defaultActiveKey={['0']} alwaysOpen>
         <Accordion.Item eventKey="0">
-            <Accordion.Header>What is our purpose?</Accordion.Header>
+            <Accordion.Header>How does the donation platform work?</Accordion.Header>
             <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Our donation platform provides a user-friendly interface where you can 
+            explore a comprehensive database of organizations. You can compare causes,
+            search for specific organizations, and make informed decisions before donating.
             </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
-            <Accordion.Header>How do i donate?</Accordion.Header>
+            <Accordion.Header>How can I search for specific causes or organizations to donate to?</Accordion.Header>
             <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Our platform offers powerful search functionality that allows you to search for 
+            organizations based on specific causes, keywords, or location. You can easily
+             find and support causes that resonate with you.
             </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
-            <Accordion.Header>Accordion Item #1</Accordion.Header>
+            <Accordion.Header>Can I donate to multiple organizations at once?</Accordion.Header>
             <Accordion.Body>
-            slay! 
+            Absolutely! Our platform supports customizable donation options, enabling you to
+            specify multiple organizations to donate to in a single transaction. This simplifies
+            the process of supporting multiple causes simultaneously.
             </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3">
-            <Accordion.Header>Accordion Item #2</Accordion.Header>
+            <Accordion.Header>Is my donation secure and confidential?</Accordion.Header>
             <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Yes, we prioritize the security and confidentiality of your donations. We utilize
+             industry-standard encryption protocols to ensure the safety of your personal
+              information and financial transactions.
             </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4">
-            <Accordion.Header>Accordion Item #1</Accordion.Header>
+            <Accordion.Header>How can I track the impact of my donations?</Accordion.Header>
             <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="5">
-            <Accordion.Header>Accordion Item #2</Accordion.Header>
-            <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            LWe provide regular updates and reports on the impact of donations. Through
+             your account dashboard, you can access information about how your contributions 
+             are making a difference and changing lives.
             </Accordion.Body>
         </Accordion.Item>
         </Accordion>
