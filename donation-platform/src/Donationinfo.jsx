@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './Navbar';
 import {useState, useEffect} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
+import Searching from './Searching';
 
 
 export default function Donationinfo() {
@@ -30,7 +31,7 @@ export default function Donationinfo() {
           <NavbarComp></NavbarComp>
           <h5 className="display-6 text-center my-5">Access authentic and reliable information of charity organisations all across Pakistan, 
               all at one place.</h5>
-              <Dropdown onSelect={handleClick}>
+          <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Filter by Cause
                     </Dropdown.Toggle>

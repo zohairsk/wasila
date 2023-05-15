@@ -3,7 +3,8 @@ import NavbarComp from './Navbar';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
-import App from './App';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 
 export default function Login({loginState, setLoginState, users, loginRequired}){
@@ -34,6 +35,7 @@ export default function Login({loginState, setLoginState, users, loginRequired})
     
     return(
         <>
+        <h1 className="display-5">Login to Donate</h1>
         {loginState ? 
         redirect()
         : 
@@ -45,20 +47,28 @@ export default function Login({loginState, setLoginState, users, loginRequired})
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
             </Toast>}
-        <div className="login border rounded" style={{backgroundColor:"rgb(190, 223, 255)"}}>
-            <h3>Login</h3>
-            <div className="login-form">
-                <Form>
-                    <Form.Control className="m-3" type="email" placeholder="Email" required onChange={()=>setEmail(event.target.value)}></Form.Control>
-                    <Form.Control className="m-3" type="password" placeholder="Password" required onChange={()=>setPassword(event.target.value)}></Form.Control>
-                    <button className="my-2 border border-dark" type="submit" onClick={verifyUser}>Login</button>
-                </Form>
-                {loginAttempt && <p>Incorrect username or id. Please try again.</p>}
-                <p>Click 
-                    <Link to="/Signup"> here </Link>
-                if you are a new user</p>
-            </div>
-        </div>
+        <>
+        <Row>
+            <Col style={{marginRight: "10%"}}>
+                <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>
+            </Col>
+            <Col style={{marginLeft: "5%", marginTop: "5%"}}>
+                <div className="my-5 px-3 login border rounded" style={{backgroundColor:"rgb(190, 223, 255)"}}>
+                    <div className="login-form">
+                        <Form>
+                            <Form.Control className="mt-5" type="email" placeholder="Email" required onChange={()=>setEmail(event.target.value)}></Form.Control>
+                            <Form.Control className="my-4" type="password" placeholder="Password" required onChange={()=>setPassword(event.target.value)}></Form.Control>
+                            <button className="mb-2 border border-dark" type="submit" onClick={verifyUser}>Login</button>
+                        </Form>
+                        {loginAttempt && <p>Incorrect username or id. Please try again.</p>}
+                        <p>Click 
+                            <Link to="/Signup"> here </Link>
+                        if you are a new user</p>
+                    </div>
+                </div>
+        </>
+            </Col>
+        </Row>
         </>
         }
         </>

@@ -5,6 +5,7 @@ export default function Searching({filteredOrg, setFilteredOrg}){
 
     const [causes, setCauses] = useState([])
    
+
     useEffect(()=>{
         fetch('http://localhost:8080/api/causes')
         .then(response => response.json())
@@ -12,14 +13,18 @@ export default function Searching({filteredOrg, setFilteredOrg}){
         .catch(error => console.error(error))
     },[]);
     
-
     const handleClick = (eventKey) => {
-        console.log(eventKey)
-        setFilteredOrg(true)
-    }
+        console.log(eventKey)}
 
+
+    // const [causes, setCauses] = useState([])
     
-    
+    // useEffect(()=>{
+    //     fetch('http://localhost:8080/api/causes')
+    //     .then(response => response.json())
+    //     .then(data => setCauses(data))
+    //     .catch(error => console.error(error))
+    // },[])
 
     return (
         <>

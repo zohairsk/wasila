@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import NavbarComp from './Navbar';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -79,25 +81,33 @@ export default function Signup() {
 
   return (
     <>
-      <NavbarComp />
-      <h2 className="mt-4">Register as a New User</h2>
-      <div className="justify-content-center border rounded" style={{ backgroundColor: '#FFE5CC', width: '24rem', height: 'auto' }}>
-        <div className="justify-content-center" style={{ width: '22rem' }}>
-          <Form className="ms-4 mt-2 py-2">
-            <Form.Control className="my-3" required type="text" name="name" placeholder="Name" onChange={handleChange} />
-            <Form.Control className="my-3" required type="email" name="email" placeholder="Email" onChange={handleChange} />
-            <Form.Control className="my-3" required type="tel" name="phonenum" placeholder="Phone Number" onChange={handleChange} />
-            <Form.Control className="my-3" required type="password" name="password" placeholder="Password" onChange={handleChange} />
-            <Form.Control className="my-3" required type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} />
-            <Form.Control className="my-3" required type="text" name="city" placeholder="City" onChange={handleChange} />
-            <Form.Control className="my-3" required type="text" name="address" placeholder="Address" onChange={handleChange} />
-            <Form.Control className="my-3" required type="number" name="cardno" placeholder="Card Number" onChange={handleChange} />
-            <button type="submit" onClick={handleSubmit} className="border border-dark">
-              Sign Up
-            </button>
-          </Form>
-        </div>
-      </div>
+      <Row>
+        <Col>
+          <img src="../images/signup.png" width="90%" height="70%" style={{position:'relative', marginTop:'20%'}}></img>
+        </Col>
+        <Col>
+            <div style={{paddingLeft: '20%'}}>
+               <h2 className="my-4 display-6" style={{marginRight: '22%'}}>Register as a New User</h2>
+                <div className="justify-content-center border rounded" style={{ backgroundColor: 'rgb(190, 223, 255)', width: '24rem', height: 'auto' }}>
+                  <div className="justify-content-center" style={{ width: '22rem' }}>
+                    <Form className="ms-4 mt-2 py-2">
+                      <Form.Control className="my-3" required type="text" name="name" placeholder="Name" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="email" name="email" placeholder="Email" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="tel" name="phonenum" placeholder="Phone Number" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="password" name="password" placeholder="Password" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="text" name="city" placeholder="City" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="text" name="address" placeholder="Address" onChange={handleChange} />
+                      <Form.Control className="my-3" required type="number" name="cardno" placeholder="Card Number" onChange={handleChange} />
+                      <button type="submit" onClick={handleSubmit} className="border border-dark">
+                        Sign Up
+                      </button>
+                  </Form>
+                </div>
+                </div>
+            </div>
+        </Col>
+      </Row>
     </>
   );
 }
