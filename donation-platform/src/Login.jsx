@@ -5,12 +5,19 @@ import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Toast from 'react-bootstrap/Toast';
 
-export default function Login({loginState, setLoginState, users}){
+export default function Login({loginState, setLoginState, users, loginRequired}){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     // const [loginState, setLoginState] = useState(false)
     const [loginAttempt, setLoginAttempt] = useState(false)
+
+    function redirect(){
+        setLoginState(true)
+        window.location.href = "/"
+        
+    }
 
     function verifyUser(e){
         e.preventDefault();
@@ -30,8 +37,16 @@ export default function Login({loginState, setLoginState, users}){
         <>
         <h1 className="display-5">Login to Donate</h1>
         {loginState ? 
-        <h2>You are logged in!</h2>
+        redirect()
         : 
+        <>
+            {loginRequired && <Toast className="mb-5 mx-4" style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
+                    <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                        <strong className="me-auto">Login/Signup</strong>
+                    </Toast.Header>
+                    <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
+            </Toast>}
         <>
         <Row>
             <Col style={{marginRight: "10%"}}>
@@ -51,6 +66,7 @@ export default function Login({loginState, setLoginState, users}){
                         if you are a new user</p>
                     </div>
                 </div>
+        </>
             </Col>
         </Row>
         </>

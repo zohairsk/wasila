@@ -27,6 +27,8 @@ function App() {
   }
   const [showSpinner, setShowSpinner] = useState(true);
 
+  
+
   useEffect(() => {
     // Set a timeout to hide the spinner after 2 seconds
     const timeout = setTimeout(() => {
@@ -48,7 +50,8 @@ function App() {
   },[])
   useEffect(()=>{console.log(users)},[users])
 
-  const [loginState, setLoginState] = useState(false)
+  const [loginState, setLoginState] = useState(true)
+  const [loginRequired, setLoginRequired] = useState(false)
 
   return (  
   <>
@@ -62,9 +65,9 @@ function App() {
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
           <Route path="/Organizations" element={<Donationinfo/>} />
-          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users}/>} />
+          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users} loginRequired={loginRequired}/>} />
           <Route path="/FAQ" element={<FAQ />} />
-          <Route path="/Donate" element={<DonationSubmission />} />
+          <Route path="/Donate" element={<DonationSubmission loginState={loginState} loginRequired={loginRequired} setLoginRequired={setLoginRequired}/>} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Payment" element={<Payment />} />
           {/* <Route path="*" element={<NoPage />} /> */}

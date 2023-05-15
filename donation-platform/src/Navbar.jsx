@@ -4,14 +4,21 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Form, FormControl, Button} from 'react-bootstrap';
 import React, {Component} from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home';
 import Login from './Login';
 
 export default function NavbarComp({loginState, setLoginState}) {
-
+    const [name, setName] = useState([])
+    const id = 'u1'
+    useEffect(()=>{
+        fetch(`http://localhost:8080/api/user/name/${id}`)//get your own id
+        .then(response => response.json())
+        .then(data => {setName(data)})
+        .catch(error => console.error(error))
+    },[]);
         return (
             <div>
             <Navbar bg="light" fixed='top' expand="lg" style={{ width: '100%', position: 'fixed', top: 0, left: 0, marginBottom: '5%', backgroundColor: 'grey'}}>
@@ -57,7 +64,7 @@ export default function NavbarComp({loginState, setLoginState}) {
                     </svg>
                     </Nav.Link>
                     :
-                    <NavDropdown title="Hello, {firstname}" id="basic-nav-dropdown">
+                    <NavDropdown title={name.length!=0 ? "Hello "+ name[0].name:""} id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Donation History</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item as={Link} to='/' onClick={() => setLoginState(false)}>
