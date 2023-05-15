@@ -19,7 +19,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import Payment from './Payment'
 
 
-
 function App() {
   const [count, setCount] = useState(0)
   const [cards,setCards]=useState(false)

@@ -23,7 +23,7 @@ export default function DonationSubmission({loginState, loginRequired, setLoginR
                 {
                     flag ? 
                     <>
-                    <h1 className='mb-3'>Donation Submission</h1>
+                    <h1 className='mb-3 display-5'>Donation Submission</h1>
                     <Row>
                     <DonationType handleClick={handleDonationType}/>
                     </Row>

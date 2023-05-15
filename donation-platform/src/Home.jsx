@@ -14,7 +14,7 @@ export default function Home({cards,setCards}){
 
     return (
     <>  
-        <div className="mt-5" style={{backgroundImage: `url("../images/Waseela.png")`, overflow: "visible", backgroundSize: "cover", width: "100%", height: '35rem', padding: '0px'}}>
+        <div className="mt-5" style={{backgroundImage: `url("../images/Waseela.png")`, overflow: "visible", backgroundSize: "cover", width: "100%", height: '35rem'}}>
         <br></br>
         <br></br><br></br>
         <br></br>
