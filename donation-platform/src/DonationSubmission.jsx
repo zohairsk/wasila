@@ -13,7 +13,7 @@ export default function DonationSubmission({sendData, setSendData, userID, login
 
     function loginRedirect(){
         setLoginRequired(true)
-        window.location.href = "/Login"
+        navigate("/Login")
     }
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
