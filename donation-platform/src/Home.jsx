@@ -2,6 +2,7 @@ import Aboutus from './Aboutus'
 import Button from 'react-bootstrap/Button'
 import Info from './Info'
 import Searching from './Searching'
+import Graph from './Graph'
 
 export default function Home({cards,setCards}){
 
@@ -30,6 +31,7 @@ export default function Home({cards,setCards}){
         <Aboutus></Aboutus>
         <br></br>
         <Info></Info>
+        <div style={{width: '50%'}}><Graph></Graph></div>
       </>
     )
 }

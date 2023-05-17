@@ -175,3 +175,8 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
       const rows = await pool.query("update user set address = ? where UserID = ?",[address,UserID])
       return rows[0];
     }
+  
+    export async function graphData(){
+      const rows = await pool.query("select count(user_donates.UserID),organisation.name from receives_donations,user_donates,organisation where (receives_donations.DonID = user_donates.DonID) and (organisation.orgID = receives_donations.OrgID) Group by (organisation.name)")
+      return rows[0];
+    }

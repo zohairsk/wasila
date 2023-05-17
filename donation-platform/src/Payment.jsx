@@ -56,12 +56,12 @@ export default function Payment({sendData, setSendData, userID, prevUserAmount,d
           .catch(error => console.error(error));
       });
     }
-    setSendData(false)
+    // setSendData(false)
     //copy this 
-    fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/u1`)
-      .then(response => response.json())
-      .then(console.log("sent!"))
-      .catch(error => console.error(error));
+    // fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/${userID}`)
+    //   .then(response => response.json())
+    //   .then(console.log("sent!"))
+    //   .catch(error => console.error(error));
   }, [sendData]);
 
 return (

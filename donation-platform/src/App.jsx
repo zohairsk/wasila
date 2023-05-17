@@ -18,6 +18,7 @@ import Footer from './Footer';
 import Spinner from 'react-bootstrap/Spinner';
 import Payment from './Payment'
 import DonationTracking from './DonationTracking';
+import Graph from './Graph'
 
 
 function App() {
@@ -62,7 +63,9 @@ function App() {
     <Spinner animation="border" />
     :
     <>
+    
     <NavbarComp userID={userID} loginState={loginState} setLoginState={setLoginState}></NavbarComp>
+
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />

@@ -7,18 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function SimplePayment({sendData, setSendData, userID, organization, selectedProject, amountValue, prevUserAmount}){
     
-    var donationEntry;
-    // const [sendData, setSendData] = useState(false)
-    // To get user donation amount
-  
+    const [donationEntry, setDonationEntry] = useState('')
     const [newUserAmount, setNewUserAmount] = useState('')
 
     function handleSubmit(event){
       event.preventDefault();
       
+      console.log("prev amnt:", prevUserAmount)
       let num;
       prevUserAmount.length != 0 ? num = Number(prevUserAmount[0].amountdonated) : num=''
       num = num + Number(amountValue)
+      console.log("userID", userID);
       setNewUserAmount(num)
 
       //generating date: 
@@ -30,7 +29,7 @@ export default function SimplePayment({sendData, setSendData, userID, organizati
       
       const id = uuidv4();
       console.log("project:", selectedProject)
-      donationEntry = {
+      setDonationEntry({
         DonID: id,
         amount: amountValue,
         d: formattedDate,
@@ -38,13 +37,15 @@ export default function SimplePayment({sendData, setSendData, userID, organizati
         pName: selectedProject,
         oName: organization,
         UserID: userID
-      }
+      })
 
       setSendData(true)
   }
 
 useEffect(() => {
   if (sendData) {
+    console.log(newUserAmount)
+    console.log(userID)
     const response = fetch('http://localhost:8080/api/donation/add', {
       method: 'POST',
       mode: 'cors',
@@ -60,10 +61,11 @@ useEffect(() => {
       })
       .catch(error => console.error(error));
   }
-    fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/u1`)
+  console.log("New user amount:", newUserAmount)
+    fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/${userID}`)
       .then(response => response.json())
-      .then(console.log("sent!"))
-      .catch(error => console.error(error));
+      .then(console.log("sent!")) 
+      .catch(error => console.error(userID));
 }, [sendData]);
   
    

@@ -1,5 +1,5 @@
 import express from 'express'
-import {getOrganisations,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress} from './queries.js'
+import {getOrganisations,graphData,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress} from './queries.js'
 import cors from 'cors'
 
 const app = express()
@@ -16,6 +16,10 @@ app.get("/api/organisation/:name", async (req,res) => {
     res.send(organisations)
 })
 
+app.get("/api/graph",async(req,res) => {
+    const data = await graphData()
+    res.send(data)
+})
 
 app.get("/api/user/:id", async (req,res) =>{
     const id = req.params.id
