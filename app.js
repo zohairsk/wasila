@@ -1,5 +1,5 @@
 import express from 'express'
-import {getOrganisations,getOrganisation,userinfo,userDonation,createUser,checkUser,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount} from './queries.js'
+import {getOrganisations,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress} from './queries.js'
 import cors from 'cors'
 
 const app = express()
@@ -58,9 +58,14 @@ app.get("/api/organisation/project/:name", async (req,res) =>{
     const projects = await getProjects(name)
     res.send(projects)
 })
-
-app.get("/api/user/total", async (req,res) =>{
+//total users api
+app.get("/api/totalusers", async (req,res) =>{
     const count = await totalUsers()
+    res.send(count)
+})
+//total donations api
+app.get("/api/totaldonations", async (req,res) =>{
+    const count = await totalDonations()
     res.send(count)
 })
 
@@ -81,6 +86,54 @@ app.get("/api/user/donation/:amount/:id", async (req,res) =>{
     const name = await userAmount(amount,id)
     res.status(200).send("successful")
 })
+//url to get status
+app.get("/api/user/donation/status/:DonID/:status", async (req,res) =>{
+    const {DonID,status} = req.params
+    const name = await updateStatus(DonID,status)
+    res.status(200).send("successful")
+})
+
+//update name
+app.get("/api/user/updatename/:UserID/:name", async (req,res) =>{
+    const {UserID,name} = req.params
+    const done = await updateName(name,UserID)
+    res.status(200).send("successful")
+})
+
+//update email
+app.get("/api/user/updatename/:UserID/:email", async (req,res) =>{
+    const {UserID,email} = req.params
+    const done = await updateEmail(email,UserID)
+    res.status(200).send("successful")
+})
+
+//update password
+app.get("/api/user/updatename/:UserID/:password", async (req,res) =>{
+    const {UserID,password} = req.params
+    const done = await updatePassword(password,UserID)
+    res.status(200).send("successful")
+})
+
+//update cardnum
+app.get("/api/user/updatename/:UserID/:cardnum", async (req,res) =>{
+    const {UserID,cardnum} = req.params
+    const done = await updateCardnum(cardnum,UserID)
+    res.status(200).send("successful")
+})
+
+//update city
+app.get("/api/user/updatename/:UserID/:city", async (req,res) =>{
+    const {UserID,city} = req.params
+    const done = await updateCity(city,UserID)
+    res.status(200).send("successful")
+})
+
+//update address
+app.get("/api/user/updatename/:UserID/:address", async (req,res) =>{
+    const {UserID,address} = req.params
+    const done = await updateAddress(address,UserID)
+    res.status(200).send("successful")
+})
 
 app.get("/api/user/amount/:id", async (req,res) =>{
     const id = req.params.id
@@ -93,6 +146,21 @@ app.get("/api/user/project/amount/:pName/:oName", async (req,res) =>{
     res.send(amount)
 })
 
+app.post("/api/donation/add",async(req,res) => {
+    const temp = req.body
+    const {DonID,amount,d,status,pName,oName,UserID} = req.body
+    console.log(req.body)
+    await newDonation(DonID,amount,d,status,pName,oName,UserID)
+    res.status(200).send("successful")
+})
+
+app.post("/api/advanceddonation/add",async(req,res) => {
+    const temp = req.body
+    const {DonID,amount,d,status,oName,UserID} = req.body
+    console.log(req.body)
+    await advancedDonation(DonID,amount,d,status,oName,UserID)
+    res.status(200).send("successful")
+})
 
 app.listen(8080,()=>{
     console.log('Server is running in port 8080')

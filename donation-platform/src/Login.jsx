@@ -7,17 +7,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 
-export default function Login({loginState, setLoginState, users, loginRequired}){
+export default function Login({setUserID, loginState, setLoginState, users}){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     // const [loginState, setLoginState] = useState(false)
     const [loginAttempt, setLoginAttempt] = useState(false)
-
-    function redirect(){
-        setLoginState(true)
-        window.location.href = "/"
-        
-    }
 
     function verifyUser(e){
         e.preventDefault();
@@ -25,6 +19,8 @@ export default function Login({loginState, setLoginState, users, loginRequired})
             console.log("Checking", users[i].email, users[i].password);
             if(users[i].email==email && users[i].password==password){
                 setLoginState(true)
+                console.log("in login, userID:", users[i].UserID)
+                setUserID(users[i].UserID)
                 return;
             }
         }
@@ -37,16 +33,16 @@ export default function Login({loginState, setLoginState, users, loginRequired})
         <>
         <h1 className="display-5">Login to Donate</h1>
         {loginState ? 
-        redirect()
+        <p>You are logged in.</p>
         : 
         <>
-            {loginRequired && <Toast className="mb-5 mx-4" style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
+            {/* {loginRequired && <Toast className="mb-5 mx-4" style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
                     <Toast.Header>
                         <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                         <strong className="me-auto">Login/Signup</strong>
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
-            </Toast>}
+            </Toast>} */}
         <Row>
             <Col style={{marginRight: "10%"}}>
                 <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>

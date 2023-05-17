@@ -5,15 +5,16 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Table from 'react-bootstrap/Table';
 
 
-
-
-export default function donationTracking() {
+export default function DonationTracking({userID}) {
   const [donations, setDonations] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/user/donation/u1')//u1 must be generated through a variable
+    fetch(`http://localhost:8080/api/user/donation/${userID}`)//u1 must be generated through a variable
       .then(response => response.json())
-      .then(data => setDonations(data))
+      .then(data => {
+        console.log(data)
+        setDonations(data)
+      })
       .catch(error => console.error(error));    
   }, []);
   

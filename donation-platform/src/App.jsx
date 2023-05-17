@@ -17,6 +17,7 @@ import FAQ from './FAQ';
 import Footer from './Footer';
 import Spinner from 'react-bootstrap/Spinner';
 import Payment from './Payment'
+import DonationTracking from './DonationTracking';
 
 
 function App() {
@@ -26,8 +27,9 @@ function App() {
     return setCards(!cards);
   }
   const [showSpinner, setShowSpinner] = useState(true);
-
-  
+  // const [donationID, setDonationID] = useState('')
+  const [userID, setUserID] = useState('')
+  const [sendData, setSendData] = useState(false)
 
   useEffect(() => {
     // Set a timeout to hide the spinner after 2 seconds
@@ -51,7 +53,7 @@ function App() {
   useEffect(()=>{console.log(users)},[users])
 
   const [loginState, setLoginState] = useState(true)
-  const [loginRequired, setLoginRequired] = useState(false)
+  // const [loginRequired, setLoginRequired] = useState(false)
 
   return (  
   <>
@@ -60,16 +62,17 @@ function App() {
     <Spinner animation="border" />
     :
     <>
-    <NavbarComp loginState={loginState} setLoginState={setLoginState}></NavbarComp>
+    <NavbarComp userID={userID} loginState={loginState} setLoginState={setLoginState}></NavbarComp>
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} />} />
           <Route path="/Organizations" element={<Donationinfo/>} />
-          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users} loginRequired={loginRequired}/>} />
+          <Route path="/Login" element={<Login setUserID={setUserID} loginState={loginState} setLoginState={setLoginState} users={users}/>} />
           <Route path="/FAQ" element={<FAQ />} />
-          <Route path="/Donate" element={<DonationSubmission loginState={loginState} loginRequired={loginRequired} setLoginRequired={setLoginRequired}/>} />
+          <Route path="/Donate" element={<DonationSubmission sendData={sendData} setSendData={setSendData} userID = {userID} loginState={loginState}/>} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/Payment" element={<Payment />} />
+          <Route path="/Payment" element={<Payment sendData={sendData} setSendData={setSendData} userID={userID}/>} />
+          <Route path="/Tracking" element={<DonationTracking userID={userID}/>} />
           {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>
     

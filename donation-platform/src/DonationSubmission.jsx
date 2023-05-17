@@ -5,10 +5,9 @@ import DonationType from './DonationType'
 import SimpleDonation from './SimpleDonation';
 import AdvancedDonation from './AdvancedDonation';
 
-export default function DonationSubmission({loginState, loginRequired, setLoginRequired}){
+export default function DonationSubmission({sendData, setSendData, userID, loginState}){
     function loginRedirect(){
-        setLoginRequired(true)
-        window.location.href = "/Login"
+       console.log("login required")
     }
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
@@ -29,7 +28,7 @@ export default function DonationSubmission({loginState, loginRequired, setLoginR
                     </Row>
                     </>
                     :
-                    option ? <AdvancedDonation/> : <SimpleDonation/>
+                    option ? <AdvancedDonation sendData={sendData} setSendData={setSendData} userID={userID}/> : <SimpleDonation sendData={sendData} setSendData={setSendData} userID={userID}/>
                 }
             </>
             :   

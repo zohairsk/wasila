@@ -10,13 +10,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home';
 import Login from './Login';
 
-export default function NavbarComp({loginState, setLoginState}) {
+export default function NavbarComp({loginState, setLoginState, userID}) {
     const [name, setName] = useState([])
-    const id = 'u1'
     useEffect(()=>{
-        fetch(`http://localhost:8080/api/user/name/${id}`)//get your own id
+        fetch(`http://localhost:8080/api/user/name/${userID}`)//get your own id
         .then(response => response.json())
-        .then(data => {setName(data)})
+        .then(data => {
+            console.log("userID:", userID)
+            console.log(data)
+            setName(data)
+        })
         .catch(error => console.error(error))
     },[]);
         return (
@@ -65,7 +68,7 @@ export default function NavbarComp({loginState, setLoginState}) {
                     </Nav.Link>
                     :
                     <NavDropdown title={name.length!=0 ? "Hello "+ name[0].name:""} id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Donation History</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/Tracking" href="#action/3.1">Donation History and Tracking</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item as={Link} to='/' onClick={() => setLoginState(false)}>
                         Sign Out
