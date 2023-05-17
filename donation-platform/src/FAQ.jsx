@@ -41,7 +41,7 @@ export default function FAQ(){
         <Accordion.Item eventKey="4">
             <Accordion.Header>How can I track the impact of my donations?</Accordion.Header>
             <Accordion.Body>
-            LWe provide regular updates and reports on the impact of donations. Through
+             We provide regular updates and reports on the impact of donations. Through
              your account dashboard, you can access information about how your contributions 
              are making a difference and changing lives.
             </Accordion.Body>

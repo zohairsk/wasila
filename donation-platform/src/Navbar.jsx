@@ -6,11 +6,9 @@ import {Form, FormControl, Button} from 'react-bootstrap';
 import React, {Component} from 'react'
 import { useState,useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './Home';
-import Login from './Login';
 
-export default function NavbarComp({loginState, setLoginState}) {
+
+export default function NavbarComp({loginState, setLoginState, showWelcome, setShowWelcome}) {
     const [name, setName] = useState([])
     const id = 'u1'
     useEffect(()=>{
@@ -64,10 +62,11 @@ export default function NavbarComp({loginState, setLoginState}) {
                     </svg>
                     </Nav.Link>
                     :
-                    <NavDropdown title={name.length!=0 ? "Hello "+ name[0].name:""} id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Donation History</NavDropdown.Item>
+                    <NavDropdown title={name.length!=0 ? "Hello, "+ name[0].name:""} id="basic-nav-dropdown">
+                    <NavDropdown.Item as={Link} to='/Userprofile'>Profile</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to='/Tracking'>Donation History</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item as={Link} to='/' onClick={() => setLoginState(false)}>
+                    <NavDropdown.Item as={Link} to='/' onClick={() => {setLoginState(false); setShowWelcome(false)}}>
                         Sign Out
                     </NavDropdown.Item>
                     </NavDropdown>

@@ -6,16 +6,20 @@ import { Outlet, Link } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login({loginState, setLoginState, users, loginRequired}){
+export default function Login({loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome}){
+    const navigate = useNavigate(); 
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    // const [loginState, setLoginState] = useState(false)
     const [loginAttempt, setLoginAttempt] = useState(false)
 
     function redirect(){
         setLoginState(true)
-        window.location.href = "/"
+        setShowWelcome(true)
+        setLoginRequired(false)
+        navigate("/")
         
     }
 
@@ -32,6 +36,10 @@ export default function Login({loginState, setLoginState, users, loginRequired})
         setLoginAttempt(true);
         return;
     }
+
+    function handleClose(){
+        setLoginRequired(false);
+    }
     
     return(
         <>
@@ -40,14 +48,14 @@ export default function Login({loginState, setLoginState, users, loginRequired})
         redirect()
         : 
         <>
-            {loginRequired && <Toast className="mb-5 mx-4" style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
+            {loginRequired && <Toast className="mb-5 mx-4" onClose={handleClose} style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
                     <Toast.Header>
                         <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                         <strong className="me-auto">Login/Signup</strong>
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
             </Toast>}
-        <>
+        
         <Row>
             <Col style={{marginRight: "10%"}}>
                 <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>
@@ -66,7 +74,6 @@ export default function Login({loginState, setLoginState, users, loginRequired})
                         if you are a new user</p>
                     </div>
                 </div>
-        </>
             </Col>
         </Row>
         </>

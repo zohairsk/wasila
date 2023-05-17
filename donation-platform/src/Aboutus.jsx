@@ -7,16 +7,6 @@ import Col from 'react-bootstrap/Col';
 export default function Aboutus() {
     return (
     <>
-        {/* <Card  border='dark' bg='light' style={{width: '80%', margin: 'auto'}}>
-        <Card.Body>
-          <Card.Title className='display-6'>About Us</Card.Title>
-          <Card.Text>
-          we r so cool and slay pls donate yummy we r so cool and slay pls donate yummywe r so cool and slay pls donate yummy
-          we r so cool and slay pls donate yummywe r so cool and slay pls donate yummywe r so cool and slay pls donate yummy
-          </Card.Text>
-        </Card.Body>
-        </Card> */}
-
         <Row className='my-5'>
           <Col>
             <Card className='border border-dark bg-light' style={{marginLeft:'auto', marginRight: 'auto', width: '24rem', paddingTop: "2%", paddingBottom: "2%" }}>

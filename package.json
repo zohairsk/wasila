@@ -22,7 +22,8 @@
     "multiselect-react-dropdown": "^2.0.25",
     "mysql2": "^3.3.0",
     "react-bootstrap": "^2.7.4",
+    "react-payment-inputs": "^1.1.9",
     "react-router": "^6.11.1",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.0.0"
   }
 }

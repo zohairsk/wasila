@@ -4,11 +4,16 @@ import Row from 'react-bootstrap/Row';
 import DonationType from './DonationType'
 import SimpleDonation from './SimpleDonation';
 import AdvancedDonation from './AdvancedDonation';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export default function DonationSubmission({loginState, loginRequired, setLoginRequired}){
+
+    const navigate = useNavigate();
+
     function loginRedirect(){
         setLoginRequired(true)
-        window.location.href = "/Login"
+        navigate('/Login');
     }
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)

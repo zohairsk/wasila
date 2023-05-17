@@ -11,6 +11,9 @@ export default function Donationinfo() {
 
   const [causes, setCauses] = useState([])
   const [selectedCause, setSelectedCause] = useState("")
+
+   //displaying cause at dropdown
+   const [selectedOption, setSelectedOption] = useState('Cause');
    
     useEffect(()=>{
         fetch('http://localhost:8080/api/causes')
@@ -24,16 +27,17 @@ export default function Donationinfo() {
         console.log(eventKey)
         setFilteredOrg(true)
         setSelectedCause(eventKey)
+        setSelectedOption(eventKey)
     }
     return (
       <>
        <section>
-          <NavbarComp></NavbarComp>
           <h5 className="display-6 text-center my-5">Access authentic and reliable information of charity organisations all across Pakistan, 
               all at one place.</h5>
+        <label>Filter by Cause:</label>
           <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Filter by Cause
+                        {selectedOption}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {
@@ -48,7 +52,7 @@ export default function Donationinfo() {
                     </Dropdown.Menu>
             </Dropdown>
           {/* <Searching filteredOrg={filteredOrg} setFilteredOrg={setFilteredOrg}></Searching> */}
-          <DonationCards filteredOrg= {filteredOrg} setFilteredOrg={setFilteredOrg} selectedCause={selectedCause}></DonationCards> 
+          <DonationCards filteredOrg= {filteredOrg} setFilteredOrg={setFilteredOrg} selectedCause={selectedCause} selectedOption={selectedOption}></DonationCards> 
        </section>
       </>
     )

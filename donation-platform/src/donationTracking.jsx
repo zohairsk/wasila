@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table';
 
 
 
-export default function donationTracking() {
+export default function DonationTracking() {
   const [donations, setDonations] = useState([]);
 
   useEffect(() => {

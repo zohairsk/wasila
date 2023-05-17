@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import NavbarComp from './Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
+import { useNavigate } from 'react-router';
 
 export default function Signup() {
+  const navigate = useNavigate() 
+
+  //new account redirect
+  const [newAccCreated, setNewAccCreated] = useState(false)
+  const [showspinner, setshowspinner] = useState(false);
+
+  //spinner stuff
+  useEffect(() => {
+    if(!showspinner) return;
+    // Set a timeout to hide the spinner after 2 seconds
+    const timeout = setTimeout(() => {
+      setshowspinner(false);
+    }, 3000);
+
+    // Cleanup function to clear the timeout if the component unmounts before the 2 seconds are up
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [showspinner])
+  
+
   const [user, setUser] = useState({
     userID: '',
     name: '',
@@ -77,11 +100,29 @@ export default function Signup() {
     catch (error) {
       console.error(error);
     }
+    setNewAccCreated(true)
+    setshowspinner(true)
   };
 
   return (
     <>
-      <Row>
+      {newAccCreated ? 
+      <>
+        {showspinner ?
+        <>
+          <h1 className='display-3'> Account Created!</h1>
+          <p className='display-6'>You may proceed to login</p>
+          <Spinner animation="grow" variant='primary' />
+        </>
+          :
+          <>
+          console.log("slay", showSpinner)
+          {navigate('/Login')}
+          </>
+          }
+      </>
+    :
+    <Row>
         <Col>
           <img src="../images/signup.png" width="90%" height="70%" style={{position:'relative', marginTop:'20%'}}></img>
         </Col>
@@ -108,6 +149,8 @@ export default function Signup() {
             </div>
         </Col>
       </Row>
+    }
+      
     </>
   );
 }
