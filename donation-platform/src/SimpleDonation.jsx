@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
-import Payment from './Payment'
+import SimplePayment from './SimplePayment'
 
-export default function SimpleDonation() {
+export default function SimpleDonation({sendData, setSendData, userID}) {
     const [Organisations, setOrganisations] = useState([])
+    const [prevUserAmount, setPrevUserAmount] = useState([])
     
     useEffect(()=>{
         fetch('http://localhost:8080/api/organisation')
@@ -13,10 +14,14 @@ export default function SimpleDonation() {
         .then(data => setOrganisations(data))
         .catch(error => console.error(error))
     },[]);
+
     useEffect(()=>{
-        fetch('http://localhost:8080/api/user/donation/add/:amount/:pName/:oName')
+        fetch(`http://localhost:8080/api/user/amount/${userID}`)
         .then(response => response.json())
-        .then(data => setOrganisations(data))
+        .then(data => {
+          console.log(data)
+          setPrevUserAmount(data)
+        })
         .catch(error => console.error(error))
     },[]);
     
@@ -30,7 +35,7 @@ export default function SimpleDonation() {
     const [proceedFurther, setProceedFurther] = useState(false)
     
     useEffect(()=>{
-        fetch(`http://localhost:8080/api/organisation/project/${organization}`)
+        fetch(`http://localhost:8080/api/organisation/project/${organization}`) //get projects based on organization
         .then(response => response.json())
         .then(data => setProj(data))
         .catch(error => console.error(error))
@@ -62,13 +67,15 @@ export default function SimpleDonation() {
         event.preventDefault(); // Prevent form submission
 
         // Get the value of the input field by name
-        setAmountValue(event.target.elements.amount.value);
+        let amnt = event.target.elements.amount.value
+        setAmountValue(amnt.replace(/,/g, ''));
+        setSendData(false)
         setProceedFurther(true)
     }
     return (
         <>
         {proceedFurther ? <>
-        <Payment organization={organization} selectedProject={selectedProject} amountValue={amountValue}/>
+        <SimplePayment sendData={sendData} setSendData={setSendData} userID = {userID} organization={organization} selectedProject={selectedProject} amountValue={amountValue} prevUserAmount={prevUserAmount}/>
         </> 
         : 
         <>

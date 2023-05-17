@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome}){
+export default function Login({loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome, setUserID}){
     const navigate = useNavigate(); 
 
     const [email, setEmail] = useState("")
@@ -29,6 +29,8 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
             console.log("Checking", users[i].email, users[i].password);
             if(users[i].email==email && users[i].password==password){
                 setLoginState(true)
+                console.log("in login, userID:", users[i].UserID)
+                setUserID(users[i].UserID)
                 return;
             }
         }
@@ -45,7 +47,7 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
         <>
         <h1 className="display-5">Login to Donate</h1>
         {loginState ? 
-        redirect()
+        <p>You are logged in.</p>
         : 
         <>
             {loginRequired && <Toast className="mb-5 mx-4" onClose={handleClose} style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
@@ -55,7 +57,7 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
             </Toast>}
-        
+        <>
         <Row>
             <Col style={{marginRight: "10%"}}>
                 <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>

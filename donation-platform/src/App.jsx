@@ -28,6 +28,10 @@ function App() {
     return setCards(!cards);
   }
   const [showSpinner, setShowSpinner] = useState(true);
+  // const [donationID, setDonationID] = useState('')
+  const [userID, setUserID] = useState('')
+  const [sendData, setSendData] = useState(false)
+
 
   //welcome prompt lol
   const [showWelcome, setShowWelcome] = useState(false);
@@ -63,17 +67,17 @@ function App() {
     <Spinner animation="border" />
     :
     <>
-    <NavbarComp loginState={loginState} setLoginState={setLoginState} showWelcome={showWelcome} setShowWelcome={setShowWelcome}></NavbarComp>
+    <NavbarComp userID={userID} loginState={loginState} setLoginState={setLoginState} showWelcome={showWelcome} setShowWelcome={setShowWelcome}></NavbarComp>
 
       <Routes>
           <Route path='/' element={<Home cards={cards} setCards={setCards} showWelcome={showWelcome} />} />
           <Route path="/Organizations" element={<Donationinfo/>} />
-          <Route path="/Login" element={<Login loginState={loginState} setLoginState={setLoginState} users={users} loginRequired={loginRequired} setLoginRequired={setLoginRequired} showWelcome={showWelcome} setShowWelcome={setShowWelcome}/>} />
+          <Route path="/Login" element={<Login setUserID={setUserID} loginState={loginState} setLoginState={setLoginState} users={users} setLoginRequired={setLoginRequired} showWelcome={showWelcome} setShowWelcome={setShowWelcome}/>} />
           <Route path="/FAQ" element={<FAQ />} />
-          <Route path="/Donate" element={<DonationSubmission loginState={loginState} loginRequired={loginRequired} setLoginRequired={setLoginRequired}/>} />
+          <Route path="/Donate" element={<DonationSubmission sendData={sendData} setSendData={setSendData} userID = {userID} loginState={loginState}/>} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/Payment" element={<Payment />} />
-          <Route path="/Tracking" element={<DonationTracking />} />
+          <Route path="/Payment" element={<Payment sendData={sendData} setSendData={setSendData} userID={userID}/>} />
+          <Route path="/Tracking" element={<DonationTracking userID={userID}/>} />
           <Route path="/Userprofile" element={<Userprofile />} />
           {/* <Route path="*" element={<NoPage />} /> */}
       </Routes>

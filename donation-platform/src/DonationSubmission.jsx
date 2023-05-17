@@ -7,13 +7,13 @@ import AdvancedDonation from './AdvancedDonation';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
-export default function DonationSubmission({loginState, loginRequired, setLoginRequired}){
+export default function DonationSubmission({sendData, setSendData, userID, loginState, loginRequired, setLoginRequired}){
 
     const navigate = useNavigate();
 
     function loginRedirect(){
         setLoginRequired(true)
-        navigate('/Login');
+        window.location.href = "/Login"
     }
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
@@ -34,7 +34,7 @@ export default function DonationSubmission({loginState, loginRequired, setLoginR
                     </Row>
                     </>
                     :
-                    option ? <AdvancedDonation/> : <SimpleDonation/>
+                    option ? <AdvancedDonation sendData={sendData} setSendData={setSendData} userID={userID}/> : <SimpleDonation sendData={sendData} setSendData={setSendData} userID={userID}/>
                 }
             </>
             :   

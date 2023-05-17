@@ -68,8 +68,12 @@ export async function getProjects(name){
 
 export async function totalUsers(){
   const rows = await pool.query("select count(*) AS count FROM user");
-  console.log(rows)
-  return rows[0].count;
+  return rows[0];
+}
+
+export async function totalDonations(){
+  const rows = await pool.query("select count(*) AS count FROM donations");
+  return rows[0];
 }
 
 export async function userName(id){
@@ -93,12 +97,81 @@ export async function userAmount(amount,id){
   return rows[0];
 }
 
-export async function getUserAmount(id){
-  const rows = await pool.query("select amountdonated from user where UserID='u1'",[id]);
+export async function updateStatus(DonID,status){
+  const rows = await pool.query("update donations set status = ? where DonID = ?",[status,DonID])
   return rows[0];
 }
 
+export async function getUserAmount(id){  
+  const rows = await pool.query("select amountdonated from user where UserID= ?",[id]);
+  return rows[0];
+}
 
+export async function getProjectID(pName,oName){  
+  const rows = await pool.query("select ProID from projects where name = ? and OrgID = (select OrgID from organisation where name =?)",[pName,oName]);
+  return rows[0];
+}
+export async function getOrgID(oName){  
+  const rows = await pool.query("select OrgID from organisation where name=?",[oName]);
+  return rows[0];
+}
 
+export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
+  const OrgID = await getOrgID(oName)
+  const ProID = await getProjectID(pName,oName)
+  console.log(OrgID)
+  const rows = await pool.query(
+    "insert into donations (DonID,amount,d,status,ProID,OrgID) VALUES (?,?, ?, ?, ?,?)",
+    [DonID,amount,d,status,ProID[0].ProID,OrgID[0].OrgID]
+  );
+  const rows2 = await pool.query(
+    "insert into user_donates (DonID,UserID) Values (?,?)",[DonID,UserID]
+  )
+  const rows3 = await pool.query(
+    "insert into receives_donations (DonID,OrgID) Values (?,?)",[DonID,OrgID[0].OrgID]
+  )
+  } 
+  export async function advancedDonation(DonID,amount,d,status,oName,UserID) {
+    const OrgID = await getOrgID(oName)
+    console.log(OrgID)
+    const rows = await pool.query(
+      "insert into donations (DonID,amount,d,status,OrgID) VALUES (?,?, ?, ?,?)",
+      [DonID,amount,d,status,OrgID[0].OrgID]
+    );
+    const rows2 = await pool.query(
+      "insert into user_donates (DonID,UserID) Values (?,?)",[DonID,UserID]
+    )
+    const rows3 = await pool.query(
+      "insert into receives_donations (DonID,OrgID) Values (?,?)",[DonID,OrgID[0].OrgID]
+    )
+    }
+  
+    export async function updateName(name,UserID){
+      const rows = await pool.query("update user set name = ? where UserID = ?",[name,UserID])
+      return rows[0];
+    }
 
+    export async function updateEmail(email,UserID){
+      const rows = await pool.query("update user set email = ? where UserID = ?",[email,UserID])
+      return rows[0];
+    }
 
+    export async function updatePassword(password,UserID){
+      const rows = await pool.query("update user set password = ? where UserID = ?",[password,UserID])
+      return rows[0];
+    }
+
+    export async function updateCardnum(cardnum,UserID){
+      const rows = await pool.query("update user set cardnum = ? where UserID = ?",[cardnum,UserID])
+      return rows[0];
+    }
+
+    export async function updateCity(city,UserID){
+      const rows = await pool.query("update user set name = ? where UserID = ?",[city,UserID])
+      return rows[0];
+    }
+
+    export async function updateAddress(address,UserID){
+      const rows = await pool.query("update user set address = ? where UserID = ?",[address,UserID])
+      return rows[0];
+    }

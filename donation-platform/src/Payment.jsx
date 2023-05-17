@@ -3,54 +3,68 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import Spinner from 'react-bootstrap/Spinner';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function Payment({organization, selectedProject, amountValue,id}){
-    const [sendData, setSendData] = useState(false)
-    function handleSubmit(event){
-        event.preventDefault();
-        setSendData(true)
+export default function Payment({sendData, setSendData, userID, prevUserAmount,donations}) {
+  const [newUserAmount, setNewUserAmount] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const num = prevUserAmount.length !== 0 ? Number(prevUserAmount[0].amountdonated) : '';
+    const totalAmount = donations.reduce((total, donationData) => total + Number(donationData.amountValue), 0);
+
+    setNewUserAmount(num + totalAmount);
+    setSendData(true);
+  }
+
+  useEffect(() => {
+    if (sendData) {
+      donations.forEach((donationData) => {
+        const { organization, amountValue } = donationData;
+
+        //generating date: 
+        const date = new Date(); // Create a new Date object with the current date and time
+        const year = date.getFullYear(); // Get the year (YYYY)
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (MM) and pad with leading zero if necessary
+        const day = String(date.getDate()).padStart(2, '0'); // Get the day (DD) and pad with leading zero if necessary
+        const formattedDate = `${year}-${month}-${day}`;
+        const id = uuidv4();
+
+        const donationEntry = {
+          DonID: id,
+          amount: amountValue,
+          d: formattedDate,
+          status: 'inProgress',
+          oName: organization,
+          UserID: userID
+        };
+
+      
+        fetch('http://localhost:8080/api/advanceddonation/add', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(donationEntry),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => console.error(error));
+      });
     }
-    // const [dataSent, setDataSent] = useState(false)
-    // //To get user donation amount
-    // const [userAmount, setUserAmount] = useState([])
-    // useEffect(()=>{
-    //     fetch(`http://localhost:8080/api/user/amount/${id}`)
-    //     .then(response => response.json())
-    //     .then(data => setUserAmount(data))
-    //     .catch(error => console.error(error))
-    // },[]);
-    // //To get project donation amount
-    // const [projAmount, setProjAmount] = useState([])
-    // useEffect(()=>{
-    //     fetch(`http://localhost:8080/api/user/project/amount/${selectedProject}/${organization}`)
-    //     .then(response => response.json())
-    //     .then(data => setProjAmount(data))
-    //     .catch(error => console.error(error))
-    // },[]);
-    // //api to get data into projects table
-    // const [projectTotal, setProjectTotal] = useState('')
-    // var currentamount = parseInt(amountValue)
-    // currentamount = currentamount + projAmount
-    // setProjectTotal(currentamount)
-    // useEffect(()=>{
-    //     fetch(`http://localhost:8080/api/user/donation/add/${projectTotal!=projAmount?projectTotal:null}/${selectedProject}/${organization}`)
-    //     .then(response => response.json())
-    //     .then(setDataSent(true))
-    //     .catch(error => console.error(error))
-    // },[]);
-    // //api to get data into users table
-    // const [userTotal, setUserTotal] = useState('')
-    // var currentUserAmount = parseInt(amountValue);
-    // currentUserAmount += userAmount
-    // setUserTotal(currentUserAmount)
-    // useEffect(()=>{
-    //     fetch(`http://localhost:8080/api/user/donation/${userTotal!=userAmount? userTotal: null}/${id}`)
-    //     .then(response => response.json())
-    //     .then(setDataSent(true))
-    //     .catch(error => console.error(error))
-    // },[]);
-    return(
+    setSendData(false)
+    //copy this 
+    fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/u1`)
+      .then(response => response.json())
+      .then(console.log("sent!"))
+      .catch(error => console.error(error));
+  }, [sendData]);
+
+return (
     <>
         <Card style={{ width: '25rem'}}>
         <Card.Body>
@@ -66,5 +80,6 @@ export default function Payment({organization, selectedProject, amountValue,id})
       </Card.Body>
     </Card>
     </>
-    )
-} 
+  );
+}
+
