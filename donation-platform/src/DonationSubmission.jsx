@@ -4,11 +4,18 @@ import Row from 'react-bootstrap/Row';
 import DonationType from './DonationType'
 import SimpleDonation from './SimpleDonation';
 import AdvancedDonation from './AdvancedDonation';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-export default function DonationSubmission({sendData, setSendData, userID, loginState}){
+export default function DonationSubmission({sendData, setSendData, userID, loginState, loginRequired, setLoginRequired}){
+
+    const navigate = useNavigate();
+
     function loginRedirect(){
-       console.log("login required")
+        setLoginRequired(true)
+        navigate('/Login')
     }
+
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
     function handleDonationType(id){
@@ -32,7 +39,9 @@ export default function DonationSubmission({sendData, setSendData, userID, login
                 }
             </>
             :   
-                loginRedirect()
+                <>
+                        {loginRedirect()}
+                </>
             }
         </>
     )

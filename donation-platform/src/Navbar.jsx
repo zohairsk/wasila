@@ -6,11 +6,9 @@ import {Form, FormControl, Button} from 'react-bootstrap';
 import React, {Component} from 'react'
 import { useState,useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './Home';
-import Login from './Login';
 
-export default function NavbarComp({loginState, setLoginState, userID}) {
+
+export default function NavbarComp({userID, loginState, setLoginState, showWelcome, setShowWelcome}) {
     const [name, setName] = useState([])
     useEffect(()=>{
         fetch(`http://localhost:8080/api/user/name/${userID}`)//get your own id
@@ -67,10 +65,11 @@ export default function NavbarComp({loginState, setLoginState, userID}) {
                     </svg>
                     </Nav.Link>
                     :
-                    <NavDropdown title={name.length!=0 ? "Hello "+ name[0].name:""} id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/Tracking" href="#action/3.1">Donation History and Tracking</NavDropdown.Item>
+                    <NavDropdown title={name.length!=0 ? "Hello, "+ name[0].name:""} id="basic-nav-dropdown">
+                    <NavDropdown.Item as={Link} to='/Userprofile'>Profile</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to='/Tracking'>Donation History</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item as={Link} to='/' onClick={() => setLoginState(false)}>
+                    <NavDropdown.Item as={Link} to='/' onClick={() => {setLoginState(false); setShowWelcome(false)}}>
                         Sign Out
                     </NavDropdown.Item>
                     </NavDropdown>

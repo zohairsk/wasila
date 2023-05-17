@@ -1,5 +1,5 @@
 import express from 'express'
-import {getOrganisations,graphData,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress} from './queries.js'
+import {getOrganisations,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress, graphData} from './queries.js'
 import cors from 'cors'
 
 const app = express()
@@ -35,9 +35,9 @@ app.get("/api/user/donation/:id", async (req,res) =>{
 
 app.post("/api/signup",async(req,res) => {
     const temp = req.body
-    const {userID,name,email,password,cardno,city,address} = req.body
+    const {userID,name,email,password,cardno,expiry,cvc,city,address} = req.body
     console.log(req.body)
-    await createUser(userID,name,email,password,cardno,city,address)
+    await createUser(userID,name,email,password,cardno,expiry,cvc,city,address)
     res.status(200).send("successful")
 })
 
@@ -168,4 +168,9 @@ app.post("/api/advanceddonation/add",async(req,res) => {
 
 app.listen(8080,()=>{
     console.log('Server is running in port 8080')
+})
+
+app.get("/api/graph",async(req,res) => {
+    const data = await graphData()
+    res.send(data)
 })

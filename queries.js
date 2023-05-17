@@ -39,11 +39,12 @@ export async function userDonation(id) {
 
 
 
-export async function createUser(userid,name,email,password,cardno,city,address) {
+export async function createUser(userid,name,email,password,cardno,expiry,cvc,city,address) {
   const rows = await pool.query(
     "insert into user (UserID,name,email, password, cardnum,city,address) VALUES (?,?, ?, ?, ?,?,?)",
     [userid,name,email,password,cardno,city,address]
   );
+  const rows1 = await pool.query("insert into cardnum (cardnum,expiry,cvc) VALUES (?,?,?)",[cardno,expiry,cvc]);
 }
 
 export async function checkUser(){
@@ -160,8 +161,9 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
       const rows = await pool.query("update user set password = ? where UserID = ?",[password,UserID])
       return rows[0];
     }
-
-    export async function updateCardnum(cardnum,UserID){
+//cardnum query
+    export async function updateCardnum(cardnum,expiry,cvc,UserID){
+      const rows2 = await pool.query("UPDATE cardnum JOIN user ON cardnum.cardnum = user.cardnum SET cardnum.cardnum = ?,cardnum.expiry=?,cardnum.cvc=? where user.UserID = ?",[cardnum,expiry,cvc,UserID])
       const rows = await pool.query("update user set cardnum = ? where UserID = ?",[cardnum,UserID])
       return rows[0];
     }
@@ -175,8 +177,8 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
       const rows = await pool.query("update user set address = ? where UserID = ?",[address,UserID])
       return rows[0];
     }
-  
+
     export async function graphData(){
       const rows = await pool.query("select count(user_donates.UserID),organisation.name from receives_donations,user_donates,organisation where (receives_donations.DonID = user_donates.DonID) and (organisation.orgID = receives_donations.OrgID) Group by (organisation.name)")
-      return rows[0];
+      return rows[0];
     }

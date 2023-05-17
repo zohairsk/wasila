@@ -31,6 +31,10 @@ export default function DonationCards({filteredOrg, setFilteredOrg, selectedCaus
     const [title, setTitle] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    //images passed at READ MORE not the thumbnail wali images
+    const [img1, setImg1] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
 
     const handleReadMoreClick = (event) => {
         Organisations.map(
@@ -41,6 +45,9 @@ export default function DonationCards({filteredOrg, setFilteredOrg, selectedCaus
                     setWeblink(Organisation.weblink)
                     setEmail(Organisation.email)
                     setPhone(Organisation.contactno)
+                    setImg1(Organisation.readmoreimg1)
+                    setImg2(Organisation.readmoreimg2)
+                    setImg3(Organisation.readmoreimg3)
             }
         }
         )
@@ -51,7 +58,7 @@ export default function DonationCards({filteredOrg, setFilteredOrg, selectedCaus
     return (
             <>  
             {(showDetails) &&
-                <ReadMoreDonation showDetails={showDetails} setShowDetails={setShowDetails} description={description} weblink={weblink} title={title} email={email} phone={phone}></ReadMoreDonation>
+                <ReadMoreDonation showDetails={showDetails} setShowDetails={setShowDetails} description={description} weblink={weblink} title={title} email={email} phone={phone} img1={img1} img2={img2} img3={img3}></ReadMoreDonation>
             }
             <Row>
                 {filteredOrg ? 
@@ -61,11 +68,11 @@ export default function DonationCards({filteredOrg, setFilteredOrg, selectedCaus
                         return(
                             <Col>
                             <Card style={{width: '19rem', height: '30rem'}} className='mt-3'>
-                            {/* <Card.Img style={{width: '19rem', height: '18rem'}} variant="top" src={Organisation.image} /> */}
+                            <Card.Img style={{width: '19rem', height: '18rem'}} variant="top" src={org.image} />
                             <Card.Body>
                                 <Card.Title>{org.name}</Card.Title>
                                 <Card.Text>
-                                {<a href={org.weblink}>{org.weblink}</a>}
+                                {<a href={org.weblink} target="_blank" >{org.weblink}</a>}
                                 </Card.Text>
                                 <Button variant="primary" onClick={handleReadMoreClick}>Read More</Button>
                             </Card.Body>

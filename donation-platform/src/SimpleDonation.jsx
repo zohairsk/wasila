@@ -44,15 +44,20 @@ export default function SimpleDonation({sendData, setSendData, userID}) {
     const [amount, setAmount] = useState("")
     const [projAmount, setProjAmount] = useState('')
 
-    
+    // for displaying project names in dropdown
+    const [selectedOption, setSelectedOption] = useState('Organization');
+    const [selectedProjectOption, setSelectedProjectOption] = useState('Project');
+
     function handleClick(eventKey){
         setOrgSelected(true)
         setOrganization(eventKey);
         console.log("org:", organization);
+        setSelectedOption(eventKey);
     }
     function handleProject(eventKey){
         console.log(eventKey);
         setSelectedProject(eventKey);
+        setSelectedProjectOption(eventKey);
 
     }
     function handleChange(event){
@@ -82,7 +87,7 @@ export default function SimpleDonation({sendData, setSendData, userID}) {
             <Form className='ms-4 mt-2 py-2' onSubmit={handleSubmit}>      
                 <Dropdown onSelect={handleClick}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Organization
+                        {selectedOption}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {
@@ -100,7 +105,7 @@ export default function SimpleDonation({sendData, setSendData, userID}) {
                 <>
                     <Dropdown onSelect={handleProject}>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Projects
+                        {selectedProjectOption}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {
