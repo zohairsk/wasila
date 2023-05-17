@@ -8,7 +8,7 @@ import { useState,useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 
 
-export default function NavbarComp({loginState, setLoginState, showWelcome, setShowWelcome, userID}) {
+export default function NavbarComp({userID, loginState, setLoginState, showWelcome, setShowWelcome}) {
     const [name, setName] = useState([])
     useEffect(()=>{
         fetch(`http://localhost:8080/api/user/name/${userID}`)//get your own id

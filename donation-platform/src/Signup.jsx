@@ -5,9 +5,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router';
+import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
+import images from 'react-payment-inputs/images';
 
 export default function Signup() {
   const navigate = useNavigate() 
+
+  //credit card
+  const {
+    wrapperProps,
+    getCardImageProps,
+    getCardNumberProps,
+    getExpiryDateProps,
+    getCVCProps
+  } = usePaymentInputs();
+
 
   //new account redirect
   const [newAccCreated, setNewAccCreated] = useState(false)
@@ -139,7 +151,14 @@ export default function Signup() {
                       <Form.Control className="my-3" required type="password" name="password2" placeholder="Confirm Password" onChange={handleChange} />
                       <Form.Control className="my-3" required type="text" name="city" placeholder="City" onChange={handleChange} />
                       <Form.Control className="my-3" required type="text" name="address" placeholder="Address" onChange={handleChange} />
-                      <Form.Control className="my-3" required type="number" name="cardno" placeholder="Card Number" onChange={handleChange} />
+                      <PaymentInputsWrapper {...wrapperProps}>
+                        <svg {...getCardImageProps({ images })} />
+                        <input {...getCardNumberProps()} />
+                        <input {...getExpiryDateProps()} />
+                        <input {...getCVCProps()} />
+                      </PaymentInputsWrapper>
+
+                      {/* <Form.Control className="my-3" required type="number" name="cardno" placeholder="Card Number" onChange={handleChange} /> */}
                       <button type="submit" onClick={handleSubmit} className="border border-dark">
                         Sign Up
                       </button>

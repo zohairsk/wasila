@@ -13,8 +13,9 @@ export default function DonationSubmission({sendData, setSendData, userID, login
 
     function loginRedirect(){
         setLoginRequired(true)
-        navigate("/Login")
+        navigate('/Login')
     }
+
     const [option, setOption] = useState()
     const [flag, setFlag] = useState(1)
     function handleDonationType(id){
@@ -38,7 +39,9 @@ export default function DonationSubmission({sendData, setSendData, userID, login
                 }
             </>
             :   
-                loginRedirect()
+                <>
+                        {loginRedirect()}
+                </>
             }
         </>
     )

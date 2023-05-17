@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome, setUserID}){
+export default function Login({setUserID, loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome}){
     const navigate = useNavigate(); 
 
     const [email, setEmail] = useState("")
@@ -47,7 +47,9 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
         <>
         <h1 className="display-5">Login to Donate</h1>
         {loginState ? 
-        <p>You are logged in.</p>
+            <>
+                {redirect()}
+            </>
         : 
         <>
             {loginRequired && <Toast className="mb-5 mx-4" onClose={handleClose} style={{width: '90%', height: '100%',backgroundColor:"#FFFFE0"}}>
@@ -57,7 +59,6 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
                     </Toast.Header>
                     <Toast.Body className="py-3">Only registered users can donate. Please login or signup to continue!</Toast.Body>
             </Toast>}
-        <>
         <Row>
             <Col style={{marginRight: "10%"}}>
                 <img src="../images/login.png" width="100%" height="85%" style={{position:'relative', marginTop:'20%'}}></img>
@@ -83,7 +84,4 @@ export default function Login({loginState, setLoginState, users, loginRequired, 
         </>
     )
 }
-
-// email = document.querySelector("input[type=text]").value
-// password = document.querySelector("input[type=password]").value
 
