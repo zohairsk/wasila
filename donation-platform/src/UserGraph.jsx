@@ -28,7 +28,7 @@ export default function UserGraph({userID}){
         datasets: [
             {
                 data: dataArray,
-                backgroundColor: ['skyblue', 'black', 'purple', 'aliceblue', 'pink']
+                backgroundColor: ['skyblue', 'black', 'purple', 'aliceblue', 'pink', 'darkblue', 'darkslategray', 'lavender', 'hotpink', 'midnightblue']
             }        
         ]
     }

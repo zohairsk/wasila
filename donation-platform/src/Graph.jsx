@@ -27,7 +27,7 @@ export default function Graph(){
         datasets: [
             {
                 data: dataArray,
-                backgroundColor: ['skyblue', 'black', 'purple', 'aliceblue', 'pink']
+                backgroundColor: ['skyblue', 'black', 'purple', 'aliceblue', 'pink', 'darkblue', 'darkslategray', 'lavender', 'hotpink', 'midnightblue']
             }        
         ]
     }
