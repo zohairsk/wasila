@@ -53,11 +53,11 @@ export async function userDonationGraph(id) {
 
 
 export async function createUser(Userid,name,email,password,cardno,expiry,cvc,city,address) {
+  const rows1 = await pool.query("insert into cardnum (cardnum,expiry,cvc) VALUES (?,?,?)",[cardno,expiry,cvc]);
   const rows = await pool.query(
     "insert into user (UserID,name,email, password, cardnum,city,address) VALUES (?,?, ?, ?, ?,?,?)",
     [Userid,name,email,password,cardno,city,address]
   );
-  const rows1 = await pool.query("insert into cardnum (cardnum,expiry,cvc) VALUES (?,?,?)",[cardno,expiry,cvc]);
 }
 
 export async function checkUser(){

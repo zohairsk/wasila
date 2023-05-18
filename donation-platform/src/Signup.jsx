@@ -66,15 +66,16 @@ export default function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const alphabets = /^[a-zA-Z]*$/;
+    const alphabets = /^[a-zA-Z\s]*$/; // Allow space in the name
     // Checking if name contains only alphabets
-    if (!(alphabets.test(user.name))) {
+    if (!alphabets.test(user.name)) {
       alert('Name must only include alphabets.');
       return;
     }
+  
 
     // Checking phone number pattern
-    const validPhoneNo = /^0\d{10}$/;
+    const validPhoneNo = /^\+?\d{1,3}?\d{9}$/; // Allow phone numbers with or without country code
     if (!validPhoneNo.test(user.phonenum)) {
       alert('Incorrect format of phone number.');
       return;
@@ -113,6 +114,8 @@ export default function Signup() {
     }
     catch (error) {
       console.error(error);
+      alert('Error signing up. Please try again.');
+      return;
     }
     setNewAccCreated(true)
     setshowspinner(true)

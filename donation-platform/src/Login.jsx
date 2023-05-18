@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './Navbar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
@@ -8,12 +8,19 @@ import Col from 'react-bootstrap/Col';
 import Toast from 'react-bootstrap/Toast';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({setUserID, loginState, setLoginState, users, loginRequired, setLoginRequired, showWelcome, setShowWelcome}){
+export default function Login({setUserID, loginState, setLoginState, users, setUsers, loginRequired, setLoginRequired, showWelcome, setShowWelcome}){
     const navigate = useNavigate(); 
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loginAttempt, setLoginAttempt] = useState(false)
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/api/login")
+        .then(response => response.json())
+        .then(data => setUsers(data))
+        .catch(error => console.error(error))
+    },[])
 
     function redirect(){
         setLoginState(true)
