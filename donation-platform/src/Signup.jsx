@@ -88,7 +88,6 @@ export default function Signup() {
       alert('Passwords do not match.');
       return;
     }
-
     console.log("WHYYYYY", input.name, input.email, input.password, input.cardnum, input.expiry, input.cvc, input.city, input.address)
     // setUser((prevUser) => ({ ...prevUser, userID: id, name: input.name, email: input.email, password: input.password, cardnum: input.cardNumber, expiry: input.expiryDate, cvc: input.cvc, city: input.city, address: input.address}));
     
@@ -110,14 +109,13 @@ export default function Signup() {
     try {
       const response = await fetch('http://localhost:8080/api/signup', {
         method: 'POST',
-        mode: 'cors', // no-cors, *cors, same-origin
+        mode: 'cors', 
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({...user, UserID: id}), // body data type must match "Content-Type" header
       });
-      const ok = response.json(); // parses JSON response into native JavaScript objects
+      const ok = response.json(); 
       console.log({ ok })
     }
     catch (error) {

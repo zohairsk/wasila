@@ -26,9 +26,7 @@ export default function Login({setUserID, loginState, setLoginState, users, logi
     function verifyUser(e){
         e.preventDefault();
         for(let i=0;i<users.length;i++){
-            console.log("Checking", users[i].email, users[i].password);
             if(users[i].email==email && users[i].password==password){
-                setLoginState(true)
                 console.log("in login, userID:", users[i].UserID)
                 setUserID(users[i].UserID)
                 //store user id in local storage

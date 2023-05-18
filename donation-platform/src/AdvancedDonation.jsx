@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import Payment from './Payment'
 
 
-export default function AdvancedDonation({sendData, setSendData, userID}){
+export default function AdvancedDonation({userCardNum, userCardExpiry, userCardCVC, savedCard, sendData, setSendData, userID}){
     const [proceedFurther, setProceedFurther] = useState(false)
     const [org, setOrg] = useState([])
     useEffect(()=>{
@@ -112,7 +112,7 @@ export default function AdvancedDonation({sendData, setSendData, userID}){
         <>
         {proceedFurther ? 
         <>
-            <Payment sendData={sendData} setSendData={setSendData} userID={userID} prevUserAmount={prevUserAmount} donations={amounts}/>
+            <Payment savedCard = {savedCard} userCardNum={userCardNum} userCardExpiry={userCardExpiry} userCardCVC={userCardCVC} sendData={sendData} setSendData={setSendData} userID={userID} prevUserAmount={prevUserAmount} donations={amounts}/>
         </>
             : 
             <>
@@ -201,7 +201,7 @@ export default function AdvancedDonation({sendData, setSendData, userID}){
                             {incorrectSplitAmount ? <><p>Amount divided must equal the total amount specified.</p></> : <></>} 
                 </>
                 }
-                <Button className="mt-4" type="submit">Proceed Further</Button>
+                <Button className="mt-4 border border-dark" style={{backgroundColor: "#376579" }} type="submit">Proceed to Payment</Button>
             </Form>
             </div> 
             </>

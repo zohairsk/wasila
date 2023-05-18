@@ -60,7 +60,7 @@ function App() {
           <Route path="/Organizations" element={<Donationinfo/>} />
           <Route path="/Login" element={<Login setUserID={setUserID} loginState={loginState} setLoginState={setLoginState} users={users} loginRequired={loginRequired} setLoginRequired={setLoginRequired} showWelcome={showWelcome} setShowWelcome={setShowWelcome}/>} />
           <Route path="/FAQ" element={<FAQ />} />
-          <Route path="/Donate" element={<DonationSubmission sendData={sendData} setSendData={setSendData} userID = {userID} loginState={loginState} loginRequired={loginRequired} setLoginRequired={setLoginRequired}/>} />
+          <Route path="/Donate" element={<DonationSubmission users={users} sendData={sendData} setSendData={setSendData} userID = {userID} loginState={loginState} loginRequired={loginRequired} setLoginRequired={setLoginRequired}/>} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Payment" element={<Payment sendData={sendData} setSendData={setSendData} userID={userID}/>} />
           <Route path="/Tracking" element={<DonationTracking userID={userID} users={users} />} />
