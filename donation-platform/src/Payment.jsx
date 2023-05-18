@@ -4,8 +4,18 @@ import './App.css'
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { v4 as uuidv4 } from 'uuid';
+import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
+import images from 'react-payment-inputs/images';
 
-export default function Payment({sendData, setSendData, userID, prevUserAmount,donations}) {
+export default function Payment({savedCard, userCardNum, userCardCVC, userCardExpiry, sendData, setSendData, userID, prevUserAmount,donations}) {
+  const {
+    wrapperProps,
+    getCardImageProps,
+    getCardNumberProps,
+    getExpiryDateProps,
+    getCVCProps
+  } = usePaymentInputs();
+
   const [newUserAmount, setNewUserAmount] = useState('');
 
   function handleSubmit(event) {
@@ -66,19 +76,36 @@ export default function Payment({sendData, setSendData, userID, prevUserAmount,d
 
 return (
     <>
+        {savedCard ? 
+        <>
+        <Card style={{ width: '25rem'}}>
+        <Card.Body>
+        <Card.Title className="mt-2 mb-3">Payment from Card</Card.Title>
+        <PaymentInputsWrapper {...wrapperProps}>
+          <svg {...getCardImageProps({ images })} />
+          <input disabled readOnly value = {userCardNum} {...getCardNumberProps()} />
+          <input disabled readOnly value = {userCardExpiry} {...getExpiryDateProps()} />
+          <input disabled readOnly value = {userCardCVC} {...getCVCProps()} />
+        </PaymentInputsWrapper>
+        <button type="submit" onClick={handleSubmit} className="border border-dark mt-4">Submit Payment</button>
+        </Card.Body>
+      </Card>
+        </> 
+        : 
+        <>
         <Card style={{ width: '25rem'}}>
         <Card.Body>
         <Card.Title>Payment from Card</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-        <Form className="ms-4 mt-2 py-2" onSubmit={handleSubmit}>
-            <Form.Control className="my-3" required type="text" name="number" placeholder="Card Number" />
-            <Form.Control className="my-3" required type="text" name="name" placeholder="Card Holder name" />
-            <Form.Control className="my-3" required type="date" name="Expiry Date" placeholder="Expiry Date"  />
-            <Form.Control className="my-3" required type="text" name="CVC" placeholder="CVC"  />
-            <button type="submit" className='border border-dark'>Submit Payment</button>
-        </Form>
-      </Card.Body>
-    </Card>
+        <PaymentInputsWrapper {...wrapperProps}>
+          <svg {...getCardImageProps({ images })} />
+          <input {...getCardNumberProps()} />
+          <input {...getExpiryDateProps()} />
+          <input {...getCVCProps()} />
+        </PaymentInputsWrapper>
+        </Card.Body>
+      </Card>
+      </>
+      }
     </>
   );
 }

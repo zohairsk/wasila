@@ -45,7 +45,9 @@ export default function Signup() {
     name: '',
     email: '',
     password: '',
-    cardno: '',
+    cardnum: '',
+    expiry: '',
+    cvc: '',
     amountdonated: null,
     city:'',
     address:''
@@ -94,19 +96,17 @@ export default function Signup() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // console.log(JSON.stringify(user))
     console.log({ user })
     try {
       const response = await fetch('http://localhost:8080/api/signup', {
         method: 'POST',
-        mode: 'cors', // no-cors, *cors, same-origin
+        mode: 'cors', 
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(user), // body data type must match "Content-Type" header
+        body: JSON.stringify(user),
       });
-      const ok = response.json(); // parses JSON response into native JavaScript objects
+      const ok = response.json(); 
       console.log({ ok })
     }
     catch (error) {

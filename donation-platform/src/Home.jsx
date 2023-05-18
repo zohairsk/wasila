@@ -49,7 +49,7 @@ export default function Home({cards,setCards, showWelcome, setShowWelcome}){
         <br></br>
         <Info></Info>
         <div style={{width: '50%'}}><Graph></Graph></div>
-      </>
+    </div>
     )
 
 }

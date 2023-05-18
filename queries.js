@@ -25,7 +25,7 @@ export async function getOrganisation(name) {
 
 
 export async function userinfo(id) {
-  const rows = await pool.query("Select * from user where UserID = ?", [id]);
+  const rows = await pool.query("Select * from user, cardnum where user.cardnum = cardnum.cardnum and user.UserID = ?", [id]);
   return rows[0];
 }
 
@@ -181,4 +181,9 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
     export async function graphData(){
       const rows = await pool.query("select count(user_donates.UserID),organisation.name from receives_donations,user_donates,organisation where (receives_donations.DonID = user_donates.DonID) and (organisation.orgID = receives_donations.OrgID) Group by (organisation.name)")
       return rows[0];
+    }
+
+    export async function userData(){
+      const rows = await pool.query("SELECT * from user, cardnum where user.cardnum=cardnum.cardnum and user.UserID = ?", [UserID])
+      return rows [0]
     }
