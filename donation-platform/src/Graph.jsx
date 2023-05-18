@@ -13,7 +13,6 @@ export default function Graph(){
     const fetchGraphData = async ()=>{
       const res = await fetch(`http://localhost:8080/api/graph`);
       const data = await res.json();
-      console.log(data)
       setGraphData(data);
     }
     useEffect(() => {

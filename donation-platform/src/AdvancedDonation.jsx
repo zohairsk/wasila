@@ -21,7 +21,6 @@ export default function AdvancedDonation({userCardNum, userCardExpiry, userCardC
         fetch(`http://localhost:8080/api/user/amount/${userID}`)
         .then(response => response.json())
         .then(data => {
-          console.log("Prevamount:", data)
           setPrevUserAmount(data)
         })
         .catch(error => console.error(error))

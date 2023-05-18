@@ -17,15 +17,6 @@ export default function Searching({filteredOrg, setFilteredOrg}){
         console.log(eventKey)}
 
 
-    // const [causes, setCauses] = useState([])
-    
-    // useEffect(()=>{
-    //     fetch('http://localhost:8080/api/causes')
-    //     .then(response => response.json())
-    //     .then(data => setCauses(data))
-    //     .catch(error => console.error(error))
-    // },[])
-
     return (
         <>
             <Dropdown onSelect={handleClick}>

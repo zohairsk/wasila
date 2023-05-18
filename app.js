@@ -40,7 +40,6 @@ app.post("/api/signup",async(req,res) => {
     const UserID = "u" + (count[0].count + 1);
 
     const {name,email,password,cardNumber,expiryDate,cvc,city,address} = req.body
-    console.log(req.body)
     await createUser(UserID,name,email,password,cardNumber,expiryDate,cvc,city,address)
     res.status(200).send("successful")
 })
@@ -147,7 +146,6 @@ app.get("/api/user/updatename/:UserID/:address", async (req,res) =>{
 app.post("/api/user/:id/update",async(req,res) => {
     const {name,password,cardNumber,expiryDate,cvc,city,address} = req.body
     const UserID = req.params.id
-    console.log(req.body)
     await updateUser(UserID,name,password,cardNumber,expiryDate,cvc,city,address)
     res.status(200).send({msg: "successful"})
 })
@@ -167,17 +165,15 @@ app.get("/api/user/project/amount/:pName/:oName", async (req,res) =>{
 app.post("/api/donation/add",async(req,res) => {
     const temp = req.body
     const {DonID,amount,d,status,pName,oName,UserID} = req.body
-    console.log(req.body)
     await newDonation(DonID,amount,d,status,pName,oName,UserID)
-    res.status(200).send("successful")
+    res.status(200).send({msg: "successful"})
 })
 
 app.post("/api/advanceddonation/add",async(req,res) => {
     const temp = req.body
     const {DonID,amount,d,status,oName,UserID} = req.body
-    console.log(req.body)
     await advancedDonation(DonID,amount,d,status,oName,UserID)
-    res.status(200).send("successful")
+    res.status(200).send({msg: "successful"})
 })
 
 app.listen(8080,()=>{

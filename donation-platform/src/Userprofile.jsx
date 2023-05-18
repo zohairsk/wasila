@@ -30,15 +30,14 @@ export default function Userprofile({ users, userID, setUsers }) {
 
 
         for (let i = 0; i < users.length; i++) {
-            console.log(users[i].UserID, userID)
             if (users[i].UserID === userID) {
                 setPassword(users[i].password);
                 setName(users[i].name);
                 setEmail(users[i].email);
                 setAddress(users[i].address);
                 setCity(users[i].city);
-                setCardNumber(users[i].cardnum);
-                setExpiryDate(users[i].expirydate);
+                setCardNumber(users[i].cardNumber);
+                setExpiryDate(users[i].expiryDate);
                 setCvc(users[i].cvc);
                 break;
             }
@@ -48,10 +47,6 @@ export default function Userprofile({ users, userID, setUsers }) {
 
     const handleNameChange = (e) => {
         setName(e.target.value);
-    };
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
     };
 
     const handleAddressChange = (e) => {
@@ -67,7 +62,7 @@ export default function Userprofile({ users, userID, setUsers }) {
         setPassword(e.target.value);
     };
 
-
+   
 
 
     const handleSubmit = () => {
@@ -80,8 +75,8 @@ export default function Userprofile({ users, userID, setUsers }) {
         }
 
         if (cvc && expiryDate && cardNumber) {
-            formdata.cardnum = cardNumber;
-            formdata.expirydate = expiryDate;
+            formdata.cardNumber = cardNumber;
+            formdata.expiryDate = expiryDate;
             formdata.cvc = cvc;
         }
 
@@ -95,7 +90,6 @@ export default function Userprofile({ users, userID, setUsers }) {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setEditable(true);
                 const user = users.find(user => user.UserID === userID);
                 user.name = name || user.name;
@@ -106,6 +100,7 @@ export default function Userprofile({ users, userID, setUsers }) {
                 user.cvc = cvc || user.cvc;
                 user.password = password || user.password;
                 setUsers([...users]);
+                alert('User updated successfully');
             })
             .catch(err => console.log(err))
 

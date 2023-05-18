@@ -24,7 +24,6 @@ export default function Donationinfo() {
     
 
     const handleClick = (eventKey) => {
-        console.log(eventKey)
         setFilteredOrg(true)
         setSelectedCause(eventKey)
         setSelectedOption(eventKey)

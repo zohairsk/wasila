@@ -133,7 +133,6 @@ export async function getOrgID(oName){
 export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
   const OrgID = await getOrgID(oName)
   const ProID = await getProjectID(pName,oName)
-  console.log(OrgID)
   const rows = await pool.query(
     "insert into donations (DonID,amount,d,status,ProID,OrgID) VALUES (?,?, ?, ?, ?,?)",
     [DonID,amount,d,status,ProID[0].ProID,OrgID[0].OrgID]
@@ -147,7 +146,6 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
   } 
   export async function advancedDonation(DonID,amount,d,status,oName,UserID) {
     const OrgID = await getOrgID(oName)
-    console.log(OrgID)
     const rows = await pool.query(
       "insert into donations (DonID,amount,d,status,OrgID) VALUES (?,?, ?, ?,?)",
       [DonID,amount,d,status,OrgID[0].OrgID]

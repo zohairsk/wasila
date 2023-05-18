@@ -59,7 +59,6 @@ export default function Signup() {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name, value)
     // setInput((values) => ({ ...values, [name]: value });
     setUser({...user, [name]: value});
     // setUser((prevUser) => ({ ...prevUser, userID: 'u2', [name]: value }));
@@ -68,8 +67,6 @@ export default function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const alphabets = /^[a-zA-Z]*$/;
-    console.log(user.expiry, user.cardnum)
-    // console.log(input.name, input.email, input.password, input.cardnum, input.expiry, input.cvc, input.city, input.address)
     // Checking if name contains only alphabets
     if (!(alphabets.test(user.name))) {
       alert('Name must only include alphabets.');
@@ -88,10 +85,8 @@ export default function Signup() {
       alert('Passwords do not match.');
       return;
     }
-    console.log("WHYYYYY", input.name, input.email, input.password, input.cardnum, input.expiry, input.cvc, input.city, input.address)
-    // setUser((prevUser) => ({ ...prevUser, userID: id, name: input.name, email: input.email, password: input.password, cardnum: input.cardNumber, expiry: input.expiryDate, cvc: input.cvc, city: input.city, address: input.address}));
     
-    // handleClick(event).then(res=>console.log(res));
+    
     try {
       await handleClick(event);
     } catch (error) {
@@ -102,8 +97,6 @@ export default function Signup() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // console.log("hi", JSON.stringify(user))
-    // console.log({ user })
     const id = uuidv4();
 
     try {
@@ -137,7 +130,6 @@ export default function Signup() {
         </>
           :
           <>
-          console.log("slay", showSpinner)
           {navigate('/Login')}
           </>
           }

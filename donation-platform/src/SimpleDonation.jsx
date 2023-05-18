@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { Outlet, Link } from "react-router-dom";
 import SimplePayment from './SimplePayment'
 
+
 export default function SimpleDonation({userCardNum, userCardExpiry, userCardCVC, savedCard, users, sendData, setSendData, userID}) {
     const [Organisations, setOrganisations] = useState([])
     const [prevUserAmount, setPrevUserAmount] = useState([])
@@ -19,7 +20,6 @@ export default function SimpleDonation({userCardNum, userCardExpiry, userCardCVC
         fetch(`http://localhost:8080/api/user/amount/${userID}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           setPrevUserAmount(data)
         })
         .catch(error => console.error(error))

@@ -22,7 +22,6 @@ export default function DonationTracking({userID, users}) {
     fetch(`http://localhost:8080/api/user/${userID}`)
     .then(response => response.json())
     .then(data => {
-      console.log("hiiii", data[0].amountdonated)
       setMoney(data[0].amountdonated)})
     .catch(error => console.error(error))
     },[])

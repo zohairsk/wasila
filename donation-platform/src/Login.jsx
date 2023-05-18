@@ -31,6 +31,7 @@ export default function Login({setUserID, loginState, setLoginState, users, logi
                 setUserID(users[i].UserID)
                 //store user id in local storage
                 localStorage.setItem("userID", users[i].UserID)
+                setLoginState(true)
                 setShowWelcome(true)
                 return;
             }

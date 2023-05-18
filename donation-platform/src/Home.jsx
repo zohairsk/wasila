@@ -23,7 +23,6 @@ export default function Home({showWelcome, setShowWelcome}){
 
     function handleClose(){
         setShowWelcome(false);
-        console.log(showWelcome)
     }
 
     return (

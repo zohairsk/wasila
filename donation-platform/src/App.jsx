@@ -39,7 +39,6 @@ function App() {
     .then(data => setUsers(data))
     .catch(error => console.error(error))
   },[])
-  useEffect(()=>{console.log(users)},[users])
 
   useEffect(()=>{
     setUserObj(users.find(user=>user.UserID==userID))

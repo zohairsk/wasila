@@ -5,9 +5,12 @@ import Card from 'react-bootstrap/Card';
 import { v4 as uuidv4 } from 'uuid';
 import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
+import { useNavigate } from 'react-router-dom';
 
 export default function SimplePayment({savedCard, userCardNum, userCardCVC, userCardExpiry, sendData, setSendData, userID, organization, selectedProject, amountValue, prevUserAmount}){
     
+  const navigate = useNavigate();
+
   const {
     wrapperProps,
     getCardImageProps,
@@ -36,7 +39,6 @@ export default function SimplePayment({savedCard, userCardNum, userCardCVC, user
       const day = String(date.getDate()).padStart(2, '0'); // Get the day (DD) and pad with leading zero if necessary
       const formattedDate = `${year}-${month}-${day}`
       
-      console.log("date: ", formattedDate)
       const id = uuidv4();
       setDonationEntry({
         DonID: id,
@@ -53,8 +55,6 @@ export default function SimplePayment({savedCard, userCardNum, userCardCVC, user
 
 useEffect(() => {
   if (sendData) {
-    console.log(newUserAmount)
-    console.log(userID)
     const response = fetch('http://localhost:8080/api/donation/add', {
       method: 'POST',
       mode: 'cors',
@@ -65,8 +65,9 @@ useEffect(() => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setSendData(false);
+        alert("Donation Successful!")
+        navigate('/')
       })
       .catch(error => console.error(error));
   }
@@ -86,9 +87,9 @@ useEffect(() => {
         <Card.Title className="mt-2 mb-3">Payment from Card</Card.Title>
         <PaymentInputsWrapper {...wrapperProps}>
           <svg {...getCardImageProps({ images })} />
-          <input disabled readOnly value = {userCardNum} {...getCardNumberProps()} />
-          <input disabled readOnly value = {userCardExpiry} {...getExpiryDateProps()} />
-          <input disabled readOnly value = {userCardCVC} {...getCVCProps()} />
+          <input value = {userCardNum} {...getCardNumberProps()} />
+          <input value = {userCardExpiry} {...getExpiryDateProps()} />
+          <input value = {userCardCVC} {...getCVCProps()} />
         </PaymentInputsWrapper>
         <button type="submit" onClick={handleSubmit} className="border border-dark mt-4">Submit Payment</button>
         </Card.Body>

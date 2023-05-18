@@ -6,8 +6,11 @@ import Form from 'react-bootstrap/Form';
 import { v4 as uuidv4 } from 'uuid';
 import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
+import { useNavigate } from 'react-router-dom';
 
 export default function Payment({savedCard, userCardNum, userCardCVC, userCardExpiry, sendData, setSendData, userID, prevUserAmount,donations}) {
+  const navigate = useNavigate();
+
   const {
     wrapperProps,
     getCardImageProps,
@@ -61,17 +64,17 @@ export default function Payment({savedCard, userCardNum, userCardCVC, userCardEx
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            alert('Donation Successful!')
+            navigate('/')
           })
           .catch(error => console.error(error));
       });
     }
-    // setSendData(false)
-    //copy this 
-    // fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/${userID}`)
-    //   .then(response => response.json())
-    //   .then(console.log("sent!"))
-    //   .catch(error => console.error(error));
+    setSendData(false)
+    fetch(`http://localhost:8080/api/user/donation/${newUserAmount}/${userID}`)
+      .then(response => response.json())
+      .then(console.log("sent!"))
+      .catch(error => console.error(error));
   }, [sendData]);
 
 return (
@@ -83,9 +86,9 @@ return (
         <Card.Title className="mt-2 mb-3">Payment from Card</Card.Title>
         <PaymentInputsWrapper {...wrapperProps}>
           <svg {...getCardImageProps({ images })} />
-          <input disabled readOnly value = {userCardNum} {...getCardNumberProps()} />
-          <input disabled readOnly value = {userCardExpiry} {...getExpiryDateProps()} />
-          <input disabled readOnly value = {userCardCVC} {...getCVCProps()} />
+          <input value = {userCardNum} {...getCardNumberProps()} />
+          <input value = {userCardExpiry} {...getExpiryDateProps()} />
+          <input value = {userCardCVC} {...getCVCProps()} />
         </PaymentInputsWrapper>
         <button type="submit" onClick={handleSubmit} className="border border-dark mt-4">Submit Payment</button>
         </Card.Body>
