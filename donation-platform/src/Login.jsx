@@ -31,6 +31,9 @@ export default function Login({setUserID, loginState, setLoginState, users, logi
                 setLoginState(true)
                 console.log("in login, userID:", users[i].UserID)
                 setUserID(users[i].UserID)
+                //store user id in local storage
+                localStorage.setItem("userID", users[i].UserID)
+                setShowWelcome(true)
                 return;
             }
         }

@@ -25,7 +25,12 @@ export async function getOrganisation(name) {
 
 
 export async function userinfo(id) {
-  const rows = await pool.query("Select * from user where UserID = ?", [id]);
+  const rows = await pool.query(`SELECT *
+  FROM user
+  LEFT OUTER JOIN cardnum
+  ON user.cardnum = cardnum.cardnum
+  WHERE user.UserID = ?
+  `, [id]);
   return rows[0];
 }
 
@@ -37,12 +42,20 @@ export async function userDonation(id) {
   return rows[0];
 }
 
+export async function userDonationGraph(id) {
+  const rows = await pool.query(
+    "SELECT organisation.name,sum(amount) FROM user, organisation, donations, user_donates, receives_donations  WHERE User.UserID = user_donates.UserID AND organisation.OrgID = receives_donations.OrgID AND donations.DonID = user_donates.DonID AND donations.DonID = receives_donations.DonID AND user.UserID = ? group by organisation.name;",
+    [id]
+  );
+  return rows[0];
+}
 
 
-export async function createUser(userid,name,email,password,cardno,expiry,cvc,city,address) {
+
+export async function createUser(Userid,name,email,password,cardno,expiry,cvc,city,address) {
   const rows = await pool.query(
     "insert into user (UserID,name,email, password, cardnum,city,address) VALUES (?,?, ?, ?, ?,?,?)",
-    [userid,name,email,password,cardno,city,address]
+    [Userid,name,email,password,cardno,city,address]
   );
   const rows1 = await pool.query("insert into cardnum (cardnum,expiry,cvc) VALUES (?,?,?)",[cardno,expiry,cvc]);
 }
@@ -181,4 +194,30 @@ export async function newDonation(DonID,amount,d,status,pName,oName,UserID) {
     export async function graphData(){
       const rows = await pool.query("select count(user_donates.UserID),organisation.name from receives_donations,user_donates,organisation where (receives_donations.DonID = user_donates.DonID) and (organisation.orgID = receives_donations.OrgID) Group by (organisation.name)")
       return rows[0];
+    }
+
+    export async function updateUser(UserID, name,password,cardNumber,expiryDate,cvc,city,address){
+      //dont do anything with email
+      
+      if(cardNumber == null){
+        if(password == null){
+          const rows = await pool.query("update user set name = ?,city = ?,address = ? where UserID = ?",[name,city,address,UserID])
+          return rows[0];
+        }
+
+        const rows = await pool.query("update user set name = ?,password = ?,city = ?,address = ? where UserID = ?",[name,password,city,address,UserID])
+        return rows[0];
+      }
+      //update user info
+      if(password == null){
+        const rows = await pool.query("update user set name = ?,cardnum = ?,city = ?,address = ? where UserID = ?",[name,cardNumber,city,address,UserID])
+        //update card info
+        const rows2 = await pool.query("update cardnum set cardnum = ?,expiry = ?,cvc = ? where cardnum = ?",[cardNumber,expiryDate,cvc,cardNumber])
+        return rows[0];
+      }
+      
+      const rows = await pool.query("update user set name = ?,password = ?,cardnum = ?,city = ?,address = ? where UserID = ?",[name,password,cardNumber,city,address,UserID])
+      //update card info
+      const rows2 = await pool.query("update cardnum set cardnum = ?,expiry = ?,cvc = ? where cardnum = ?",[cardNumber,expiryDate,cvc,cardNumber])
+      return rows[0];
     }

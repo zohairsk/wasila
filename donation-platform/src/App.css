@@ -107,3 +107,7 @@
 .button-19:disabled {
   cursor: auto;
 }
+
+.card:hover {
+  background-color: aliceblue;
+}

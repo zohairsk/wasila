@@ -1,5 +1,5 @@
 import express from 'express'
-import {getOrganisations,getOrganisation,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress, graphData} from './queries.js'
+import {getOrganisations,getOrganisation,userDonationGraph,updateStatus,userinfo,userDonation,createUser,checkUser,advancedDonation,getOrganisationCauses,getCauses,getProjects,totalUsers,userName,addDonation,userAmount,getProjectAmount,getUserAmount,newDonation,totalDonations,updateName,updateEmail,updatePassword,updateCardnum,updateCity,updateAddress, graphData, updateUser} from './queries.js'
 import cors from 'cors'
 
 const app = express()
@@ -35,9 +35,13 @@ app.get("/api/user/donation/:id", async (req,res) =>{
 
 app.post("/api/signup",async(req,res) => {
     const temp = req.body
-    const {userID,name,email,password,cardno,expiry,cvc,city,address} = req.body
+    //count number of users
+    const count = await totalUsers();
+    const UserID = "u" + (count[0].count + 1);
+
+    const {name,email,password,cardNumber,expiryDate,cvc,city,address} = req.body
     console.log(req.body)
-    await createUser(userID,name,email,password,cardno,expiry,cvc,city,address)
+    await createUser(UserID,name,email,password,cardNumber,expiryDate,cvc,city,address)
     res.status(200).send("successful")
 })
 
@@ -139,6 +143,16 @@ app.get("/api/user/updatename/:UserID/:address", async (req,res) =>{
     res.status(200).send("successful")
 })
 
+//update user object with whatever values are sent by frontend
+app.post("/api/user/:id/update",async(req,res) => {
+    const {name,password,cardNumber,expiryDate,cvc,city,address} = req.body
+    const UserID = req.params.id
+    console.log(req.body)
+    await updateUser(UserID,name,password,cardNumber,expiryDate,cvc,city,address)
+    res.status(200).send({msg: "successful"})
+})
+
+
 app.get("/api/user/amount/:id", async (req,res) =>{
     const id = req.params.id
     const amount = await getUserAmount(id)
@@ -172,5 +186,11 @@ app.listen(8080,()=>{
 
 app.get("/api/graph",async(req,res) => {
     const data = await graphData()
+    res.send(data)
+})
+
+app.get("/api/user/graph/:id",async(req,res) => {
+    const id = req.params.id
+    const data = await userDonationGraph(id)
     res.send(data)
 })

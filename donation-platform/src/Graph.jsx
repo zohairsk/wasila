@@ -8,44 +8,18 @@ ChartJS.register(
 )
 
 export default function Graph(){
-    const [graphData, setGraphData] = useState([
-        {
-          "count(user_donates.UserID)": 6,
-          "name": "Edhi Foundation"
-        },
-        {
-          "count(user_donates.UserID)": 9,
-          "name": "Health Oriented Preventive Education"
-        },
-        {
-          "count(user_donates.UserID)": 4,
-          "name": "Saylani Welfare Trust"
-        },
-        {
-          "count(user_donates.UserID)": 7,
-          "name": "Shaukat Khanum Memorial Hospital"
-        },
-        {
-          "count(user_donates.UserID)": 2,
-          "name": "Chhipa Welfare Association"
-        }])
-    //const [labels, setLabels] = useState([])
-    // const [data, setData] = useState([])
+    const [graphData, setGraphData] = useState([])
 
-    useEffect(()=>{
-        fetch(`http://localhost:8080/api/graph`) 
-        .then(response => response.json())
-        .then(data => setGraphData(data))
-        .catch(error => console.error(error))
+    const fetchGraphData = async ()=>{
+      const res = await fetch(`http://localhost:8080/api/graph`);
+      const data = await res.json();
+      console.log(data)
+      setGraphData(data);
+    }
+    useEffect(() => {
+      fetchGraphData();
     },[]);
 
-    // graphData.map(
-    //     graph => {
-    //         // setInput((values) => ({ ...values, [name]: value }));
-    //             setLabels((labels) => ([...labels, graph.name]));
-    //             setData((data) => ([...data, graph['count(user_donates.UserID)']]));
-    //     }
-    // )
     const labelsArray = graphData.map(item => item.name);
     const dataArray = graphData.map(item => item['count(user_donates.UserID)'])
 
@@ -54,7 +28,7 @@ export default function Graph(){
         datasets: [
             {
                 data: dataArray,
-                backgroundColor: ['aqua', 'lilac', 'purple', 'aliceblue', 'pink']
+                backgroundColor: ['skyblue', 'black', 'purple', 'aliceblue', 'pink']
             }        
         ]
     }

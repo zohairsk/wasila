@@ -8,18 +8,18 @@ import { useState,useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 
 
-export default function NavbarComp({userID, loginState, setLoginState, showWelcome, setShowWelcome}) {
-    const [name, setName] = useState([])
-    useEffect(()=>{
-        fetch(`http://localhost:8080/api/user/name/${userID}`)//get your own id
-        .then(response => response.json())
-        .then(data => {
-            console.log("userID:", userID)
-            console.log(data)
-            setName(data)
-        })
-        .catch(error => console.error(error))
-    },[]);
+export default function NavbarComp({userID, user, loginState, setLoginState, showWelcome, setShowWelcome}) {
+    // const [name, setName] = useState([])
+    // useEffect(()=>{
+    //     fetch(`http://localhost:8080/api/user/name/${userID}`)//get your own id
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log("userID:", userID)
+    //         console.log(data)
+    //         setName(data)
+    //     })
+    //     .catch(error => console.error(error))
+    // },[userID]);
         return (
             <div>
             <Navbar bg="light" fixed='top' expand="lg" style={{ width: '100%', position: 'fixed', top: 0, left: 0, marginBottom: '5%', backgroundColor: 'grey'}}>
@@ -65,11 +65,15 @@ export default function NavbarComp({userID, loginState, setLoginState, showWelco
                     </svg>
                     </Nav.Link>
                     :
-                    <NavDropdown title={name.length!=0 ? "Hello, "+ name[0].name:""} id="basic-nav-dropdown">
+                    <NavDropdown title={user?.name ? "Hello, "+ user.name:""} id="basic-nav-dropdown">
                     <NavDropdown.Item as={Link} to='/Userprofile'>Profile</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to='/Tracking'>Donation History</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item as={Link} to='/' onClick={() => {setLoginState(false); setShowWelcome(false)}}>
+                    <NavDropdown.Item as={Link} to='/' onClick={() => {
+                        setLoginState(false);
+                        setShowWelcome(false);
+                        localStorage.removeItem('userID');
+                        }}>
                         Sign Out
                     </NavDropdown.Item>
                     </NavDropdown>

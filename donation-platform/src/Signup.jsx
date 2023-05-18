@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router';
 import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Signup() {
   const navigate = useNavigate() 
@@ -45,7 +46,9 @@ export default function Signup() {
     name: '',
     email: '',
     password: '',
-    cardno: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvc: '',
     amountdonated: null,
     city:'',
     address:''
@@ -56,33 +59,39 @@ export default function Signup() {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInput((values) => ({ ...values, [name]: value }));
-    setUser((prevUser) => ({ ...prevUser, userID: 'u2', [name]: value }));
-    console.log(user);
+    console.log(name, value)
+    // setInput((values) => ({ ...values, [name]: value });
+    setUser({...user, [name]: value});
+    // setUser((prevUser) => ({ ...prevUser, userID: 'u2', [name]: value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const alphabets = /^[a-zA-Z]*$/;
+    console.log(user.expiry, user.cardnum)
+    // console.log(input.name, input.email, input.password, input.cardnum, input.expiry, input.cvc, input.city, input.address)
     // Checking if name contains only alphabets
-    if (!(alphabets.test(input.fname) && alphabets.test(input.lname))) {
+    if (!(alphabets.test(user.name))) {
       alert('Name must only include alphabets.');
       return;
     }
 
     // Checking phone number pattern
     const validPhoneNo = /^0\d{10}$/;
-    if (!validPhoneNo.test(input.phonenum)) {
+    if (!validPhoneNo.test(user.phonenum)) {
       alert('Incorrect format of phone number.');
       return;
     }
 
     // Checking if passwords match
-    if (!(input.password.trim() === input.password2.trim())) {
+    if (!(user.password.trim() === user.password2.trim())) {
       alert('Passwords do not match.');
       return;
     }
 
+    console.log("WHYYYYY", input.name, input.email, input.password, input.cardnum, input.expiry, input.cvc, input.city, input.address)
+    // setUser((prevUser) => ({ ...prevUser, userID: id, name: input.name, email: input.email, password: input.password, cardnum: input.cardNumber, expiry: input.expiryDate, cvc: input.cvc, city: input.city, address: input.address}));
+    
     // handleClick(event).then(res=>console.log(res));
     try {
       await handleClick(event);
@@ -94,8 +103,10 @@ export default function Signup() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // console.log(JSON.stringify(user))
-    console.log({ user })
+    // console.log("hi", JSON.stringify(user))
+    // console.log({ user })
+    const id = uuidv4();
+
     try {
       const response = await fetch('http://localhost:8080/api/signup', {
         method: 'POST',
@@ -104,7 +115,7 @@ export default function Signup() {
           'Content-Type': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(user), // body data type must match "Content-Type" header
+        body: JSON.stringify({...user, UserID: id}), // body data type must match "Content-Type" header
       });
       const ok = response.json(); // parses JSON response into native JavaScript objects
       console.log({ ok })
@@ -153,9 +164,9 @@ export default function Signup() {
                       <Form.Control className="my-3" required type="text" name="address" placeholder="Address" onChange={handleChange} />
                       <PaymentInputsWrapper {...wrapperProps}>
                         <svg {...getCardImageProps({ images })} />
-                        <input {...getCardNumberProps()} />
-                        <input {...getExpiryDateProps()} />
-                        <input {...getCVCProps()} />
+                        <input name="cardnum" {...getCardNumberProps({onChange: handleChange}) } />
+                        <input name="expiry" {...getExpiryDateProps({onChange: handleChange})} />
+                        <input name="cvc" {...getCVCProps({onChange: handleChange})} />
                       </PaymentInputsWrapper>
 
                       {/* <Form.Control className="my-3" required type="number" name="cardno" placeholder="Card Number" onChange={handleChange} /> */}
